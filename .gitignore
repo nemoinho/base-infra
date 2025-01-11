@@ -1,0 +1,6 @@
+*
+!/.gitignore
+!/**/*.tf
+!/.terraform.lock.hcl
+!/dns-records.csv
+!/dns/
