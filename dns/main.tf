@@ -4,11 +4,11 @@ resource "hetznerdns_zone" "this" {
 }
 
 locals {
-  records = {
+  records = nonsensitive({
     for record in var.records : "${record.type}#${record.name}#${md5(record.value)}" => {
       for key, value in record : key => value
     }
-  }
+  })
 }
 
 resource "hetznerdns_record" "this" {

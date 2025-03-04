@@ -12,7 +12,7 @@ variable "records" {
     name = string
     value = string
     type = string
-    ttl = optional(number, 3600)
+    ttl = optional(number, null)
   }))
   default = []
 }

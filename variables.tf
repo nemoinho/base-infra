@@ -2,12 +2,12 @@ variable "hetzner_apitoken" {
   type = string
 }
 
-variable "google_dkim" {
-  type = map(string)
+variable "nehrke_info_dkim" {
+  type      = string
+  sensitive = true
 }
 
-variable "gmail_dns_default_ttl" {
-  type    = number
-  default = 3600
+variable "sozpaedil_net_dkim" {
+  type      = string
+  sensitive = true
 }
-
