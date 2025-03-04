@@ -15,12 +15,7 @@ module "dns_nehrke_info" {
   records  = [
     { name = "@", ttl = 900, type = "A", value = "62.138.6.205" },
     { name = "*", ttl = 900, type = "A", value = "62.138.6.205" },
-    # TODO: update smtp-config, see https://support.google.com/a/answer/174125?hl=en#zippy=%2Cgoogle-workspace-legacy-version-before
-    { name = "@", type = "MX", value = "1 aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "5 alt1.aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "5 alt2.aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "10 alt3.aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "10 alt1.aspmx.l.google.com." },
+    { name = "@", type = "MX", value = "1 smtp.google.com." },
     { name = "@", type = "TXT", value = "v=spf1 include:_spf.google.com a mx ~all" },
     { name = "_dmarc", type = "TXT", value = "v=DMARC1; p=none;" },
     { name = "google._domainkey", type = "TXT", value = var.nehrke_info_dkim },
@@ -34,12 +29,7 @@ module "dns_sozpaedil_net" {
   records  = [
     { name = "@", ttl = 900, type = "A", value = "62.138.6.205" },
     { name = "*", ttl = 900, type = "A", value = "62.138.6.205" },
-    # TODO: update smtp-config, see https://support.google.com/a/answer/174125?hl=en#zippy=%2Cgoogle-workspace-legacy-version-before
-    { name = "@", type = "MX", value = "1 aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "5 alt1.aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "5 alt2.aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "10 alt3.aspmx.l.google.com." },
-    { name = "@", type = "MX", value = "10 alt1.aspmx.l.google.com." },
+    { name = "@", type = "MX", value = "1 smtp.google.com." },
     { name = "@", type = "TXT", value = "v=spf1 include:_spf.google.com a mx ~all" },
     { name = "_dmarc", type = "TXT", value = "v=DMARC1; p=none;" },
     { name = "google._domainkey", type = "TXT", value = var.sozpaedil_net_dkim },
