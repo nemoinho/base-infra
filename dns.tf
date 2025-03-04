@@ -1,5 +1,5 @@
 module "dns_goperte_de" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "goperte.de"
   zone_ttl = 900
   records  = [
@@ -9,7 +9,7 @@ module "dns_goperte_de" {
 }
 
 module "dns_nehrke_info" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "nehrke.info"
   zone_ttl = 3600
   records  = [
@@ -28,7 +28,7 @@ module "dns_nehrke_info" {
 }
 
 module "dns_sozpaedil_net" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "sozpaedil.net"
   zone_ttl = 3600
   records  = [
@@ -47,7 +47,7 @@ module "dns_sozpaedil_net" {
 }
 
 module "dns_tovot_de" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "tovot.de"
   zone_ttl = 900
   records  = [
@@ -57,7 +57,7 @@ module "dns_tovot_de" {
 }
 
 module "dns_tovot_net" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "tovot.net"
   zone_ttl = 900
   records  = [
@@ -67,7 +67,7 @@ module "dns_tovot_net" {
 }
 
 module "dns_tovot_org" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "tovot.org"
   zone_ttl = 900
   records  = [
@@ -77,7 +77,7 @@ module "dns_tovot_org" {
 }
 
 module "dns_xn--alleingnger-r8a_de" {
-  source   = "./dns"
+  source   = "./modules/hetzner/dns"
   zone     = "xn--alleingnger-r8a.de"
   zone_ttl = 900
   records  = [
