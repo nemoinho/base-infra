@@ -6,3 +6,7 @@ terraform {
     }
   }
 }
+
+provider "hetznerdns" {
+  apitoken = var.hetzner_dns_apitoken
+}
