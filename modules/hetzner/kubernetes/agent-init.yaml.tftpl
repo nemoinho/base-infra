@@ -1,0 +1,25 @@
+#cloud-config
+packages:
+- curl
+users:
+- name: cluster
+  shell: /bin/bash
+runcmd:
+# configure correct routing via NAT
+- ip route add default via ${network_gateway}
+- NIC=$(ifconfig | grep -q enp7s0 && echo enp7s0 || echo ens10)
+- echo "[Match]" > /etc/systemd/network/10-$NIC.network
+- echo "Name=$NIC" >> /etc/systemd/network/10-$NIC.network
+- echo "[Network]" >> /etc/systemd/network/10-$NIC.network
+- echo "DHCP=yes" >> /etc/systemd/network/10-$NIC.network
+- echo "Gateway=${network_gateway}" >> /etc/systemd/network/10-$NIC.network
+- sed -e "s/#DNS=/DNS=${dns_servers}/" -i /etc/systemd/resolved.conf
+- systemctl restart systemd-resolved
+# update system dependency-lists
+- apt-get update -y
+# install k3s but do not start yet
+- curl -sfL https://get.k3s.io | tee install-k3s | INSTALL_K3S_SKIP_ENABLE=true sh -s -
+# wait for the server node to be ready by trying to connect to it
+- until curl -k https://${server_ip}:6443; do sleep 5; done
+# Enable and start k3s-agent
+- cat install-k3s | K3S_TOKEN=${k3s_token} sh -s - agent --server https://${server_ip}:6443

@@ -1,6 +1,7 @@
 *
 !/.gitignore
 !/**/*.tf
+!/**/*.tftpl
 !/.terraform.lock.hcl
 !/modules/
 !/modules/**/*/

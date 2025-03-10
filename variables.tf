@@ -19,3 +19,4 @@ variable "sozpaedil_net_dkim" {
 variable "ssh_keys" {
   type = map(string)
 }
+
