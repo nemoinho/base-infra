@@ -18,6 +18,17 @@ locals {
       )
     }
   ]...)
+  all_ips           = ["0.0.0.0/0", "::/0"]
+  ping_firewall     = var.ping_enabled ? { "ping" : [{ protocol = "icmp", port = null }] } : {}
+  k8s_firewall      = { "kubernetes" : [{ port = "6443", source_ips = concat([local.network], var.kubernetes_exposed_ips) }] }
+  ssh_firewall      = length(var.ssh_exposed_ips) > 0 ? { "ssh" : [{ port = 1022, source_ips = var.ssh_exposed_ips }] } : {}
+  service_firewalls = { for service, ports in var.public_tcp_services : service => [for port in ports : { port = port }] }
+  firewalls = merge(
+    local.ping_firewall,
+    local.k8s_firewall,
+    local.ssh_firewall,
+    local.service_firewalls
+  )
 }
 
 resource "hcloud_network" "this" {
@@ -44,43 +55,16 @@ resource "random_string" "k3s_token" {
 }
 
 resource "hcloud_firewall" "this" {
-  name = var.name
-  rule {
-    direction = "in"
-    protocol = "icmp"
-    source_ips = ["0.0.0.0/0", "::/0"]
-  }
-  rule {
-    direction = "in"
-    protocol = "tcp"
-    port = "22"
-    source_ips = ["0.0.0.0/0", "::/0"]
-  }
-  rule {
-    direction = "in"
-    protocol = "tcp"
-    port = "80"
-    source_ips = ["0.0.0.0/0", "::/0"]
-  }
-  rule {
-    direction = "in"
-    protocol = "tcp"
-    port = "443"
-    source_ips = ["0.0.0.0/0", "::/0"]
-  }
-  rule {
-    direction = "in"
-    protocol = "tcp"
-    port = "6443"
-    source_ips = concat([local.network], var.development_ips)
-  }
+  for_each = local.firewalls
+
+  name = each.key
   dynamic "rule" {
-    for_each = length(var.development_ips) == 0 ? {} : { ips = 1 }
+    for_each = each.value
     content {
-      direction = "in"
-      protocol = "tcp"
-      port = "1022"
-      source_ips = var.development_ips
+      direction  = lookup(rule.value, "direction", "in")
+      protocol   = lookup(rule.value, "protocol", "tcp")
+      source_ips = lookup(rule.value, "source_ips", local.all_ips)
+      port       = lookup(rule.value, "port")
     }
   }
 }
@@ -109,7 +93,7 @@ resource "hcloud_server" "server" {
       first_ip         = each.value.first_ip
     }
   )
-  firewall_ids = [hcloud_firewall.this.id]
+  firewall_ids = [for firewall in hcloud_firewall.this : firewall.id]
 }
 
 resource "hcloud_server" "agent" {

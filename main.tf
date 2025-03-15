@@ -31,8 +31,6 @@ data "external" "my_ip" {
 module "k8s" {
   source = "./modules/hetzner/kubernetes"
 
-  development_ips = [ for ip in data.external.my_ip.result : ip ]
-
   name     = "cluster1"
   ssh_keys = [for o in hcloud_ssh_key.this : o.id]
   # Only odd numbers of servers make any sense
@@ -47,6 +45,11 @@ module "k8s" {
     location = "fsn1"
     count    = 1
   }]
+  kubernetes_exposed_ips = values(data.external.my_ip.result)
+  ssh_exposed_ips        = values(data.external.my_ip.result)
+  public_tcp_services = {
+    http = ["80", "443"]
+  }
 }
 
 locals {
