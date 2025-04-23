@@ -33,7 +33,7 @@ module "k8s" {
 
   name     = "cluster1"
   ssh_keys = [for o in hcloud_ssh_key.this : o.id]
-  # Only odd numbers of servers make any sense
+  # Ensure a odd number of definitions, since only that make any sense
   servers = [{
     ipv4_id  = hcloud_primary_ip.k8s_ipv4.id
     ipv6_id  = hcloud_primary_ip.k8s_ipv6.id
@@ -54,15 +54,20 @@ module "k8s" {
 
 locals {
   dns_zones = {
-    # costs-table:
-    #  domain | amount | hetzner (einzel) | hetzner konsoleH (einzel) | tecspace (einzel)
-    # --------+--------+------------------+---------------------------+-------------------
-    #      de |      3 | 30.00€  (10.00€) |  35.70€          (11.90€) | 15.85€    (5.95€)
-    #    info |      1 | 26.00€  (26.00€) |  30.94€          (30.94€) | 21.95€   (21.95€)
-    #     net |      2 | 28.00€  (14.00€) |  33.32€          (16.66€) | 35.90€   (17.95€)
-    #     org |      1 | 15.00€  (15.00€) |  17.85€          (17.85€) | 21.95€   (21.95€)
-    # --------+--------+------------------+---------------------------+--------------------
-    #     sum |      7 | 99.00€           | 117.21€                   | 97.65€
+    # costs-table (incl. taxes):
+    #  domain | amount | hetzner (einzel) | tecspace (einzel)
+    # --------+--------+------------------+-------------------
+    #      de |      3 |  35.70€ (11.90€) |  15.85€   (5.95€)
+    #    info |      1 |  30.94€ (30.94€) |  21.95€  (21.95€)
+    #     net |      2 |  33.32€ (16.66€) |  35.90€  (17.95€)
+    #     org |      1 |  17.85€ (17.85€) |  21.95€  (21.95€)
+    # --------+--------+------------------+-------------------
+    #     sum |      7 | 117.21€          |  97.65€
+    #
+    # Note, that Hetzner usually shows prices w/o taxes!
+    #
+    # Reference: https://www.hetzner.com/de/whois/
+    # Reference: https://www.tecspace.de/domain-preisliste
     "goperte.de" = {
       zone_ttl = 900
       records = [
