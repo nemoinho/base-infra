@@ -45,8 +45,8 @@ module "k8s" {
     location = "fsn1"
     count    = 1
   }]
-  kubernetes_exposed_ips = values(data.external.my_ip.result)
-  ssh_exposed_ips        = values(data.external.my_ip.result)
+  kubernetes_exposed_ips = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
+  ssh_exposed_ips        = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
   public_tcp_services = {
     http = ["80", "443"]
   }

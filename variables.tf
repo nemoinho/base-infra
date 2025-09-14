@@ -1,3 +1,8 @@
+variable "expose_kubernetes_and_ssh_ports" {
+  type    = bool
+  default = false
+}
+
 variable "hetzner_dns_apitoken" {
   type = string
 }
