@@ -1,0 +1,26 @@
+= k3s
+:icons: font
+
+This project is responsible for setting up a k3s installation.
+
+== Setup
+
+The setup requires a `inventory.ini` this should be provided by a previous step.
+
+// tag::setup[]
+[source,bash]
+----
+ansible-galaxy install -r requirements.yml # <1>
+ansible-playbook k3s.orchestration.site -i inventory.ini # <2>
+ansible-playbook download-kube-config.yml -i inventory.ini # <3>
+ansible-playbook k3s.orchestration.upgrade -i inventory.ini # <4>
+----
+
+<1> Install required ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
+<2> Install k3s
+<3> Download the kube-config to .kube/config
+<4> Update k3s when necessary
+
+[IMPORTANT]
+Step 3 will override any existing kube config this might destroy any existing settings!
+// end::setup[]

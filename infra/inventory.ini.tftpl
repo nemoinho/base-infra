@@ -1,0 +1,13 @@
+[server]
+%{for ip in server_ips~}
+${ip}
+%{endfor~}
+
+[agent]
+%{for ip in agent_ips~}
+${ip}
+%{endfor~}
+
+[k3s_cluster:children]
+server
+agent

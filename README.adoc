@@ -11,36 +11,36 @@ The setup is split into 2 dedicated parts:
 
 . Ensure `terraform` is installed
 . Ensure `ansible` is installed
-. Create `config.auto.tfvars` with all the needed configuration-secrets (Stored in password-manager)
 
 == Setup
 
-In most cases it should be save to follow this guide:
+The project is split into different directories, each responsible for another task.
+For the initial setup it is mandatory to follow the instructions of each directory in the following order.
+Subsequent changes may only require a subset of these instructions.
+Though, it should be safe to run each step multiple times, they should all be indempotent.
 
-[source,bash]
-----
-ansible-galaxy install -r requirements.yml # <1>
-terraform apply # <2>
-ansible-playbook k3s.orchestration.site -i inventory.ini # <3>
-ansible-playbook download-kube-config.yml -i inventory.ini # <4>
-ansible-playbook k3s.orchestration.upgrade -i inventory.ini # <5>
-----
+=== infra
 
-<1> Install required ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
-<2> Setup infrastructure and create/update inventory.ini (This might take some time, even after it's "ready")
-<3> Install k3s
-<4> Download the kube-config to .kube/config
-<5> Update k3s when necessary
+Run this setup in the `infra/` directory.
 
-[IMPORTANT]
-Step 4 will override any existing kube config this might destroy any existing settings!
+include::infra/README.adoc[tag=setup]
+
+=== k3s
+
+Run this setup in the `k3s/` directory.
+
+[NOTE]
+The k3s-setup requires a `inventory.ini` which is automatically created by the infra.
+So, make sure to apply the infra at least once, before running these playbooks.
+
+include::k3s/README.adoc[tag=setup]
 
 == Enlarge / Reduce size of cluster
 
 Increase::
 --
-. Simply adjust the number of agents/servers in your `config.auto.tfvars`.
-. Run steps 2 & 3 of the setup again
+. Simply adjust the number of agents/servers in your `infra/config.auto.tfvars`.
+. Run steps 3 & 4 of the setup again
 --
 Decrease::
 --
@@ -55,8 +55,7 @@ Instead proceed as the following:
 
 == Responsibilities
 
-The terraform scripts are responsible for:
-
+`infra/`::
 * Creation of network for the kubernetes-cluster
 ** A public subnet exposed to the internet for the kubernetes-servers
 ** A private subnet for the kubernetes-agents
@@ -72,8 +71,7 @@ The terraform scripts are responsible for:
 * Setup SSH-connections
 * Creating DNS-records in Hetzer Cloud
 
-The ansible scripts are responsible for:
-
+`k3s/`::
 * Installing k3s
 * Keep the software up-to-date
 

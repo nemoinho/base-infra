@@ -1,0 +1,21 @@
+= infra
+:icons: font
+
+This project is responsible for providing the required infra to run a kubernetes-cluster.
+
+== Setup
+
+// tag::setup[]
+[WARNING]
+Make sure `config.auto.tfvars` with all the needed configuration-secrets is present otherwise the module cannot be applied!
+The file is savely stored in the password-manager.
+
+[source,bash]
+----
+terraform init # <1>
+terraform apply # <2>
+----
+
+<1> Init the terraform modules if necessary
+<2> Setup infrastructure and create/update inventory.ini (This might take some time, even after it's "ready")
+// end::setup[]
