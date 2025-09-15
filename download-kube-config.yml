@@ -1,0 +1,15 @@
+- hosts: server[0]
+  tasks:
+  - name: Download kube-config
+    fetch:
+      src: /etc/rancher/k3s/k3s.yaml
+      dest: "{{ lookup('env', 'HOME') }}/.kube/config"
+      flat: true
+- hosts: localhost
+  tasks:
+  - name: Use correct ip-address for k8s-cluster
+    lineinfile:
+      path: "{{ lookup('env', 'HOME') }}/.kube/config"
+      regexp: '^(\s*server: https://).*(:\d+)$'
+      line: \g<1>{{ hostvars[groups['server'][0]]['api_endpoint'] }}\g<2>
+      backrefs: yes

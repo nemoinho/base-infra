@@ -5,25 +5,9 @@ users:
 - name: cluster
   shell: /bin/bash
 runcmd:
-# update system dependency-lists
-- apt-get update -y
 # configure NAT
 - echo '#!/bin/bash' > /etc/networkd-dispatcher/routable.d/10-eth0-post-up
 - echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /etc/networkd-dispatcher/routable.d/10-eth0-post-up
 - echo 'iptables -t nat -A POSTROUTING -s ${network_ip_range} -o eth0 -j MASQUERADE' >> /etc/networkd-dispatcher/routable.d/10-eth0-post-up
 - chmod +x /etc/networkd-dispatcher/routable.d/10-eth0-post-up
 - /etc/networkd-dispatcher/routable.d/10-eth0-post-up
-# install k3s but do not start yet
-- curl -sfL https://get.k3s.io | tee install-k3s | INSTALL_K3S_SKIP_ENABLE=true sh -s -
-%{ if first_ip != "" ~}
-- until curl -k https://${first_ip}:6443; do sleep 5; done
-%{ endif ~}
-# Enable and start k3s-server
-%{ if first_ip == "" ~}
-- cat install-k3s | K3S_TOKEN=${k3s_token} sh -s - server --cluster-init
-%{~ else ~}
-- cat install-k3s | INSTALL_K3S_SKIP_DOWNLOAD=true K3S_TOKEN=${k3s_token} sh -s - server --server https://${first_ip}:6443
-%{~ endif }
-- chown cluster:cluster /etc/rancher/k3s/k3s.yaml
-- chown cluster:cluster /var/lib/rancher/k3s/server
-- chown cluster:cluster /var/lib/rancher/k3s/server/node-token

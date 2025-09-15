@@ -1,0 +1,29 @@
+[server]
+%{for ip in server_ips~}
+${ip}
+%{endfor~}
+
+[server:vars]
+ansible_user=root
+ansible_ssh_common_args='-o StrictHostKeyChecking=accept-new'
+%{if length(server_ips) > 0~}
+api_endpoint=${server_ips[0]}
+%{endif~}
+k3s_version=${k3s_version}
+
+[agent]
+%{for ip in agent_ips~}
+${ip}
+%{endfor~}
+
+[agent:vars]
+ansible_user=root
+%{if length(server_ips) > 0~}
+ansible_ssh_common_args='-o StrictHostKeyChecking=accept-new -o ProxyCommand="ssh -p 22 -W %h:%p -q root@${server_ips[0]}"'
+api_endpoint=${server_ips[0]}
+%{endif~}
+k3s_version=${k3s_version}
+
+[k3s_cluster:children]
+server
+agent

@@ -72,3 +72,8 @@ variable "k8s_agent_type" {
   type    = string
   default = "cax11"
 }
+
+variable "k3s_version" {
+  type        = string
+  description = "The k3s version to use."
+}

@@ -1,0 +1,80 @@
+= Hetzer Infra
+:icons: font
+
+This repository is meant to setup my kubernetes-cluster on Hetzner Cloud.
+The setup is split into 2 dedicated parts:
+
+. Create necessary machines in Hetzner Cloud via terraform.
+. Install/Upgrade kubernetes-cluster and other software via ansible.
+
+== Preparation
+
+. Ensure `terraform` is installed
+. Ensure `ansible` is installed
+. Create `config.auto.tfvars` with all the needed configuration-secrets (Stored in password-manager)
+
+== Setup
+
+In most cases it should be save to follow this guide:
+
+[source,bash]
+----
+ansible-galaxy install -r requirements.yml # <1>
+terraform apply # <2>
+ansible-playbook k3s.orchestration.site -i inventory.ini # <3>
+ansible-playbook download-kube-config.yml -i inventory.ini # <4>
+ansible-playbook k3s.orchestration.upgrade -i inventory.ini # <5>
+----
+
+<1> Install required ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
+<2> Setup infrastructure and create/update inventory.ini (This might take some time, even after it's "ready")
+<3> Install k3s
+<4> Download the kube-config to .kube/config
+<5> Update k3s when necessary
+
+[IMPORTANT]
+Step 4 will override any existing kube config this might destroy any existing settings!
+
+== Enlarge / Reduce size of cluster
+
+Increase::
+--
+. Simply adjust the number of agents/servers in your `config.auto.tfvars`.
+. Run steps 2 & 3 of the setup again
+--
+Decrease::
+--
+If you want shrink the cluster **DO NOT** reduce the agent-amount directly!
+Instead proceed as the following:
+
+. Open k9s and go to `:nodes`
+. Select the highest agent and press `r` to drain it
+. Afterward that succeeded delete it with `Ctrl-d`
+. Finally reduce the amount of agents in terraform and apply the change
+--
+
+== Responsibilities
+
+The terraform scripts are responsible for:
+
+* Creation of network for the kubernetes-cluster
+** A public subnet exposed to the internet for the kubernetes-servers
+** A private subnet for the kubernetes-agents
+* Routing between the networks
+* Firewall rules to block everything from the servers except of:
+** ping (protocol: `icmp`)
+** kubernetes api (Usually port `6443`)
+** ssh (I prefer to use a non-standard port since I want to provide a git-server on port `22`)
+** public services, e.g. http and https (port `80` and `443`)
+* Creating the kubernetes-servers in the public subnet
+* Creating the kubernetes-agents in the private subnet
+* Setting up routing on all servers
+* Setup SSH-connections
+* Creating DNS-records in Hetzer Cloud
+
+The ansible scripts are responsible for:
+
+* Installing k3s
+* Keep the software up-to-date
+
+

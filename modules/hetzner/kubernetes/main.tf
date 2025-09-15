@@ -68,10 +68,14 @@ resource "hcloud_firewall" "this" {
     }
   }
 }
-
 resource "hcloud_server" "server" {
   depends_on  = [hcloud_network_subnet.this]
   for_each    = local.servers
+
+  lifecycle {
+    ignore_changes = [ user_data ]
+  }
+
   name        = each.key
   image       = "ubuntu-24.04"
   server_type = each.value.type
@@ -99,6 +103,10 @@ resource "hcloud_server" "server" {
 resource "hcloud_server" "agent" {
   depends_on = [hcloud_server.server]
   for_each   = local.agents
+
+  lifecycle {
+    ignore_changes = [ user_data ]
+  }
 
   name        = each.key
   image       = "ubuntu-24.04"
