@@ -5,19 +5,23 @@ resource "hcloud_ssh_key" "this" {
 }
 
 resource "hcloud_primary_ip" "k8s_ipv4" {
-  name          = "k8s_primary_ipv4"
-  datacenter    = "fsn1-dc14"
+  count = var.k8s_server_count < 1 ? 1 : var.k8s_server_count
+
+  name          = "k8s_primary_ipv4_${count.index}"
+  datacenter    = var.k8s_ip_datacenter
   type          = "ipv4"
   assignee_type = "server"
-  auto_delete   = false # change to true and apply before deleting!
+  auto_delete   = !var.k8s_test_installation
 }
 
 resource "hcloud_primary_ip" "k8s_ipv6" {
-  name          = "k8s_primary_ipv6"
-  datacenter    = "fsn1-dc14"
+  count = var.k8s_server_count < 1 ? 1 : var.k8s_server_count
+
+  name          = "k8s_primary_ipv6_${count.index}"
+  datacenter    = var.k8s_ip_datacenter
   type          = "ipv6"
   assignee_type = "server"
-  auto_delete   = false # change to true and apply before deleting!
+  auto_delete   = !var.k8s_test_installation
 }
 
 data "external" "my_ip" {
@@ -33,17 +37,16 @@ module "k8s" {
 
   name     = "cluster1"
   ssh_keys = [for o in hcloud_ssh_key.this : o.id]
-  # Ensure a odd number of definitions, since only that make any sense
-  servers = [{
-    ipv4_id  = hcloud_primary_ip.k8s_ipv4.id
-    ipv6_id  = hcloud_primary_ip.k8s_ipv6.id
-    type     = "cax11"
-    location = "fsn1"
+  servers = [for n in range(var.k8s_server_count) : {
+    ipv4_id  = hcloud_primary_ip.k8s_ipv4[n].id
+    ipv6_id  = hcloud_primary_ip.k8s_ipv6[n].id
+    type     = var.k8s_server_type
+    location = var.k8s_location
   }]
   agents = [{
-    type     = "cax11"
-    location = "fsn1"
-    count    = 1
+    type     = var.k8s_agent_type
+    location = var.k8s_location
+    count    = var.k8s_agent_count
   }]
   kubernetes_exposed_ips = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
   ssh_exposed_ips        = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
@@ -71,19 +74,19 @@ locals {
     "goperte.de" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
       ]
     },
     "nehrke.info" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
         { name = "@", ttl = 86400, type = "MX", value = "1 smtp.google.com." },
         { name = "@", ttl = 86400, type = "TXT", value = "v=spf1 include:_spf.google.com a mx ~all" },
         { name = "_dmarc", ttl = 86400, type = "TXT", value = "v=DMARC1; p=none;" },
@@ -93,10 +96,10 @@ locals {
     "sozpaedil.net" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
         { name = "@", ttl = 86400, type = "MX", value = "1 smtp.google.com." },
         { name = "@", ttl = 86400, type = "TXT", value = "v=spf1 include:_spf.google.com a mx ~all" },
         { name = "_dmarc", ttl = 86400, type = "TXT", value = "v=DMARC1; p=none;" },
@@ -106,37 +109,37 @@ locals {
     "tovot.de" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
       ]
     },
     "tovot.net" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
       ]
     },
     "tovot.org" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
       ]
     },
     "xn--alleingnger-r8a.de" = {
       zone_ttl = 900
       records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4.ip_address },
-        { name = "@", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
-        { name = "*", type = "AAAA", value = hcloud_primary_ip.k8s_ipv6.ip_address },
+        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
       ]
     },
   }
