@@ -5,6 +5,10 @@ users:
 - name: cluster
   shell: /bin/bash
 runcmd:
+# setup ssh over port 1022 instead of 22
+- sed -i /etc/ssh/sshd_config -e 's/^#\{,1\}\( *Port\) [0-9]\+$/\1 1022/'
+- systemctl daemon-reload
+- systemctl restart ssh.socket
 # configure NAT
 - echo '#!/bin/bash' > /etc/networkd-dispatcher/routable.d/10-eth0-post-up
 - echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /etc/networkd-dispatcher/routable.d/10-eth0-post-up

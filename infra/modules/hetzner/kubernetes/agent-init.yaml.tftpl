@@ -5,6 +5,10 @@ users:
 - name: cluster
   shell: /bin/bash
 runcmd:
+# setup ssh over port 1022 instead of 22
+- sed -i /etc/ssh/sshd_config -e 's/^#\{,1\}\( *Port\) [0-9]\+$/\1 1022/'
+- systemctl daemon-reload
+- systemctl restart ssh.socket
 # configure correct routing via NAT
 - ip route add default via ${network_gateway}
 - NIC=$(ifconfig | grep -q enp7s0 && echo enp7s0 || echo ens10)
