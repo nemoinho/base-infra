@@ -1,0 +1,21 @@
+= k8s
+:icons: font
+
+This project is responsible for providing general services in the kubernetes-cluster.
+
+== Setup
+
+// tag::setup[]
+[WARNING]
+Make sure `config.auto.tfvars` with all the needed configuration-secrets is present otherwise the module cannot be applied!
+The file is savely stored in the password-manager.
+
+[source,bash]
+----
+terraform init # <1>
+terraform apply # <2>
+----
+
+<1> Init the terraform modules if necessary
+<2> Create services in the cluster
+// end::setup[]

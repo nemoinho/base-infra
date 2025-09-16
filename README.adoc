@@ -23,7 +23,7 @@ Though, it should be safe to run each step multiple times, they should all be in
 
 Run this setup in the `infra/` directory.
 
-include::infra/README.adoc[tag=setup]
+include::./infra/README.adoc[tag=setup]
 
 === k3s
 
@@ -33,7 +33,13 @@ Run this setup in the `k3s/` directory.
 The k3s-setup requires a `inventory.ini` which is automatically created by the infra.
 So, make sure to apply the infra at least once, before running these playbooks.
 
-include::k3s/README.adoc[tag=setup]
+include::./k3s/README.adoc[tag=setup]
+
+=== k8s
+
+Run this setup in the `k8s/` directory.
+
+include::./k8s/README.adoc[tag=setup]
 
 == Enlarge / Reduce size of cluster
 
