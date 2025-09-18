@@ -1,3 +1,25 @@
+- hosts: server
+  gather_facts: no
+  roles:
+  - role: server-setup
+    tags:
+    - init
+    - add-server
+- hosts: agent
+  roles:
+  - role: agent-setup
+    tags:
+    - init
+    - add-agent
 - import_playbook: k3s.orchestration.site
+  tags:
+  - init
+  - add-server
+  - add-agent
 - import_playbook: download-kube-config.yml
+  tags:
+  - init
+  - config
 - import_playbook: k3s.orchestration.upgrade
+  tags:
+  - update

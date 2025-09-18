@@ -1,0 +1,50 @@
+- name: Set facts for target SSH-connection
+  set_fact:
+    target_ansible_port: "{{ ansible_port }}"
+
+- name: Check if SSH-connection is already adjusted
+  ping:
+  ignore_errors: "yes"
+  ignore_unreachable: "yes"
+  register: target_ssh
+
+- name: Set ansible_port to 22 when SSH-connection is not adjusted
+  set_fact:
+    ansible_port: "22"
+  when: target_ssh.unreachable is defined and
+        target_ssh.unreachable == True
+
+- name: Check if initial SSH-connection is active
+  ping:
+  when: target_ssh.unreachable is defined and
+        target_ssh.unreachable == True
+
+- name: Set SSH-port to 1022
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?\s*Port\s+[0-9]+$'
+    line: Port 1022
+  notify: "Restart sshd"
+  when: target_ssh.unreachable is defined and
+        target_ssh.unreachable == True
+
+- name: Reset ansible_port to configured value
+  set_fact:
+    ansible_port: "{{ target_ansible_port }}"
+  when: target_ssh.unreachable is defined and
+        target_ssh.unreachable == True
+
+- name: Run deferred setup to gather facts
+  setup:
+
+- name: Ensure routable.d path to masquerade ips
+  file:
+    path: "{{ ip_masquerade_path }}"
+    state: directory
+
+- name: Configure NAT to masquerade ips
+  template:
+    src: ip-masquerade.sh.j2
+    dest: "{{ ip_masquerade_path }}/{{ ip_masquerade_script }}"
+    mode: u=rwx,g=rx,o=rx
+  notify: "Start ip-masquerade"

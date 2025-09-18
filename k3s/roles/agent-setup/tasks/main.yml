@@ -1,0 +1,29 @@
+- name: Set default network route
+  shell: "ip route add default via {{ private_nat }}"
+  ignore_errors: "yes"
+  when: ansible_facts['default_ipv4']['alias'] is not defined
+
+- name: Regather facts
+  setup:
+  when: ansible_facts['default_ipv4']['alias'] is not defined
+
+- name: Gather fact target_nic
+  set_fact:
+    target_nic: "{{ ansible_facts['default_ipv4']['alias'] }}"
+
+- name: Ensure path to configure default route
+  file:
+    path: "{{ network_config_path }}"
+    state: directory
+
+- name: Configure default route
+  template:
+    src: nic.network.j2
+    dest: "{{ network_config_path }}/10-{{target_nic}}.network"
+
+- name: Configure DNS servers
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^#?\s*DNS\s*=.*'
+    line: "DNS={{ dns_servers }}"
+  notify: "Restart resolved"

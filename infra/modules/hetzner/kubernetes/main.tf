@@ -89,14 +89,6 @@ resource "hcloud_server" "server" {
     network_id = hcloud_network.this.id
     ip         = each.value.ip
   }
-  user_data = templatefile(
-    "${path.module}/server-init.yaml.tftpl",
-    {
-      network_ip_range = local.network
-      k3s_token        = random_string.k3s_token.result
-      first_ip         = each.value.first_ip
-    }
-  )
   firewall_ids = [for firewall in hcloud_firewall.this : firewall.id]
 }
 
@@ -121,13 +113,4 @@ resource "hcloud_server" "agent" {
     network_id = hcloud_network.this.id
     ip         = each.value.ip
   }
-  user_data = templatefile(
-    "${path.module}/agent-init.yaml.tftpl",
-    {
-      server_ip       = cidrhost(local.subnet_eu_central, 2)
-      network_gateway = cidrhost(local.subnet_eu_central, 1)
-      dns_servers     = "8.8.8.8 8.8.4.4"
-      k3s_token       = random_string.k3s_token.result
-    }
-  )
 }

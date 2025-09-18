@@ -11,3 +11,7 @@ ${ip}
 [k3s_cluster:children]
 server
 agent
+
+[k3s_cluster:vars]
+network_cidr=${network_cidr}
+private_nat=${private_nat}

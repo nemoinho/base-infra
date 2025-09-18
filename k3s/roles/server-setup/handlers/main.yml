@@ -1,0 +1,7 @@
+- name: Restart sshd
+  service:
+    name: ssh
+    state: restarted
+
+- name: Start ip-masquerade
+  script: "{{ ip_masquerade_path }}/{{ ip_masquerade_script }}"

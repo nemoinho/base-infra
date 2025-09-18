@@ -14,7 +14,7 @@ The setup is split into 2 dedicated parts:
 cd infra
 terraform init
 terraform apply
-sleep 300 # Wait 5 minutes to allow the user-data script to finish
+sleep 300 # Wait 5 minutes since the machines start _slow_ sometimes
 cd ../k3s
 ansible-galaxy install -r requirements.yml 
 ansible-playbook site.yml

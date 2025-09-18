@@ -1,0 +1,2 @@
+ip_masquerade_path: /etc/networkd-dispatcher/routable.d
+ip_masquerade_script: 10-eth0-post-up

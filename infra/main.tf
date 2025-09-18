@@ -59,8 +59,10 @@ module "k8s" {
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/../k3s/inventory.ini"
   content = templatefile("./inventory.ini.tftpl", {
-    server_ips  = module.k8s.server_ips_v4,
-    agent_ips   = module.k8s.agent_ips_v4,
+    server_ips   = module.k8s.server_ips_v4,
+    agent_ips    = module.k8s.agent_ips_v4,
+    network_cidr = module.k8s.private_network_cidr,
+    private_nat  = module.k8s.private_network_nat,
   })
 }
 
