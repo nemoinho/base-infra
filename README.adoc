@@ -7,6 +7,22 @@ The setup is split into 2 dedicated parts:
 . Create necessary machines in Hetzner Cloud via terraform.
 . Install/Upgrade kubernetes-cluster and other software via ansible.
 
+== TL;DR
+
+[source,bash]
+----
+cd infra
+terraform init
+terraform apply
+sleep 300 # Wait 5 minutes to allow the user-data script to finish
+cd ../k3s
+ansible-galaxy install -r requirements.yml 
+ansible-playbook site.yml
+cd ../k8s
+terraform init
+terraform apply
+----
+
 == Preparation
 
 . Ensure `terraform` is installed
