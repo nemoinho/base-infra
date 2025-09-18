@@ -11,16 +11,12 @@ The setup requires a `inventory.ini` this should be provided by a previous step.
 [source,bash]
 ----
 ansible-galaxy install -r requirements.yml # <1>
-ansible-playbook k3s.orchestration.site -i inventory.ini # <2>
-ansible-playbook download-kube-config.yml -i inventory.ini # <3>
-ansible-playbook k3s.orchestration.upgrade -i inventory.ini # <4>
+ansible-playbook site.yml # <2>
 ----
 
 <1> Install required ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
-<2> Install k3s
-<3> Download the kube-config to .kube/config
-<4> Update k3s when necessary
+<2> Install k3s and download kube-config to .kube/config
 
 [IMPORTANT]
-Step 3 will override any existing kube config this might destroy any existing settings!
+The second step will override any existing kube config, this might destroy any existing settings!
 // end::setup[]

@@ -1,0 +1,3 @@
+- import_playbook: k3s.orchestration.site
+- import_playbook: download-kube-config.yml
+- import_playbook: k3s.orchestration.upgrade
