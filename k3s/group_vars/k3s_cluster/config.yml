@@ -1,5 +1,0 @@
-ansible_user: root
-api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
-
-# note the space between the IPs!
-dns_servers: 8.8.8.8 8.8.4.4

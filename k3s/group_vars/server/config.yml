@@ -1,3 +1,0 @@
-ansible_ssh_common_args: '-o StrictHostKeyChecking=accept-new'
-ansible_port: 1022
-k3s_version: v1.31.6+k3s1

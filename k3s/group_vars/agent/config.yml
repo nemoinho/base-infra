@@ -1,3 +1,0 @@
-ansible_ssh_common_args: -o StrictHostKeyChecking=accept-new -o ProxyCommand="ssh -p 1022 -W %h:%p -q root@{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
-ansible_port: 22
-k3s_version: v1.31.6+k3s1
