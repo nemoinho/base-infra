@@ -42,3 +42,8 @@ variable "ssh_exposed_ips" {
   type = list(string)
   default = []
 }
+
+variable "ssh_port" {
+  type = number
+  default = 1022
+}

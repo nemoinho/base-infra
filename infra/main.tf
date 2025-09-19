@@ -50,6 +50,7 @@ module "k8s" {
   }]
   kubernetes_exposed_ips = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
   ssh_exposed_ips        = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
+  ssh_port               = 1022
   public_tcp_services = {
     git-ssh = ["22"]
     http = ["80", "443"]
@@ -63,6 +64,7 @@ resource "local_file" "ansible_inventory" {
     agent_ips    = module.k8s.agent_ips_v4,
     network_cidr = module.k8s.private_network_cidr,
     private_nat  = module.k8s.private_network_nat,
+    ssh_port     = module.k8s.ssh_port,
   })
 }
 

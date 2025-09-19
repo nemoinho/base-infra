@@ -21,7 +21,7 @@ locals {
   all_ips           = ["0.0.0.0/0", "::/0"]
   ping_firewall     = var.ping_enabled ? { "ping" : [{ protocol = "icmp", port = null }] } : {}
   k8s_firewall      = { "kubernetes" : [{ port = "6443", source_ips = concat([local.network], var.kubernetes_exposed_ips) }] }
-  ssh_firewall      = length(var.ssh_exposed_ips) > 0 ? { "ssh" : [{ port = 1022, source_ips = var.ssh_exposed_ips }] } : {}
+  ssh_firewall      = length(var.ssh_exposed_ips) > 0 ? { "ssh" : [{ port = var.ssh_port, source_ips = var.ssh_exposed_ips }] } : {}
   service_firewalls = { for service, ports in var.public_tcp_services : service => [for port in ports : { port = port }] }
   firewalls = merge(
     local.ping_firewall,

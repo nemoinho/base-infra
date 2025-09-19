@@ -17,3 +17,7 @@ output "private_network_cidr" {
 output "private_network_nat" {
   value = cidrhost(local.subnet_eu_central, 1)
 }
+
+output "ssh_port" {
+  value = var.ssh_port
+}
