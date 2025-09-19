@@ -1,0 +1,19 @@
+- name: Download kube-config
+  fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: "{{ lookup('env', 'HOME') }}/.kube/config.orig"
+    flat: true
+  register: loaded_kube_config
+- name: Copy kube-config to correct location
+  delegate_to: localhost
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/.kube/config.orig"
+    dest: "{{ lookup('env', 'HOME') }}/.kube/config"
+  when: hostvars[groups['server'][0]]['loaded_kube_config'] is changed
+- name: Use correct ip-address for k8s-cluster
+  delegate_to: localhost
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.kube/config"
+    regexp: '^(\s*server: https://).*(:\d+)$'
+    line: \g<1>{{ hostvars[groups['server'][0]]['api_endpoint'] }}\g<2>
+    backrefs: yes

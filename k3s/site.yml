@@ -16,10 +16,13 @@
   - init
   - add-server
   - add-agent
-- import_playbook: download-kube-config.yml
-  tags:
-  - init
-  - config
 - import_playbook: k3s.orchestration.upgrade
   tags:
   - update
+- hosts: server[0]
+  roles:
+  - role: kube-config
+    tags:
+    - init
+    - config
+    - update
