@@ -1,7 +1,32 @@
 = k3s
 :icons: font
 
-This project is responsible for setting up a k3s installation.
+This project is responsible for setting up a k3s installation and provide a set of foundational services in the cluster.
+The provided services are:
+
+cert-manager::
+This allows issuing TLS certificates.
+The certificates are issued via https://letsencrypt.org[let's encrypt] and can be issued for the staging and production stage of let's encrypt.
+minio::
+
+Allow me to store data in an object storage.
++
+TODO: Not setup yet!
+
+concourse-ci::
+A powerful CI-cervice which I like to use to automate all kind of workloads.
++
+TODO: Not setup yet!
+
+gitea::
+My personal favourite git-server.
++
+TODO: Not setup yet!
+
+snappass::
+A secure and reliable tool to share password.
++
+TODO: Not setup yet!
 
 == Setup
 
@@ -19,4 +44,13 @@ ansible-playbook site.yml # <2>
 
 [IMPORTANT]
 The second step will override any existing kube config, this might destroy any existing settings!
+
+[NOTE]
+--
+To apply the playbook you may need to install additional packages:
+
+* https://helm.sh/docs/intro/install/[helm]
+* https://github.com/databus23/helm-diff?tab=readme-ov-file#install[helm-diff]
+* python3-kubernetes (Debian/Ubuntu)
+--
 // end::setup[]

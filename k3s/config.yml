@@ -1,0 +1,28 @@
+all:
+  vars:
+    k8s_api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
+    cert_manager_state: present
+    cert_manager_version: v1.18.2
+    letsencrypt_clusterissuers:
+      staging:
+        server: https://acme-staging-v02.api.letsencrypt.org/directory
+        email: "{{ vault_letsencrypt_issuer_email }}"
+      prod:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        email: "{{ vault_letsencrypt_issuer_email }}"
+
+k3s_cluster:
+  vars:
+    ansible_user: root
+    # note the space between the IPs!
+    dns_servers: 8.8.8.8 8.8.4.4
+
+agent:
+  vars:
+    ansible_ssh_common_args: -o StrictHostKeyChecking=accept-new -o ProxyCommand="ssh -p 1022 -W %h:%p -q root@{{ k8s_api_endpoint }}"
+    k3s_version: v1.31.6+k3s1
+
+server:
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=accept-new'
+    k3s_version: v1.31.6+k3s1

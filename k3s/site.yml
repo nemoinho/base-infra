@@ -26,3 +26,9 @@
     - init
     - config
     - update
+- hosts: localhost
+  roles:
+  - role: k8s-setup
+    tags:
+    - init
+    - k8s

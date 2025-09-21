@@ -18,9 +18,6 @@ sleep 300 # Wait 5 minutes since the machines start _slow_ sometimes
 cd ../k3s
 ansible-galaxy install -r requirements.yml 
 ansible-playbook site.yml
-cd ../k8s
-terraform init
-terraform apply
 ----
 
 == Preparation
@@ -51,18 +48,12 @@ So, make sure to apply the infra at least once, before running these playbooks.
 
 include::./k3s/README.adoc[tag=setup]
 
-=== k8s
-
-Run this setup in the `k8s/` directory.
-
-include::./k8s/README.adoc[tag=setup]
-
 == Enlarge / Reduce size of cluster
 
 Increase::
 --
 . Simply adjust the number of agents/servers in your `infra/config.auto.tfvars`.
-. Run steps 3 & 4 of the setup again
+. Then run the ansible-playbook of k3s again
 --
 Decrease::
 --
@@ -85,16 +76,17 @@ Instead proceed as the following:
 * Firewall rules to block everything from the servers except of:
 ** ping (protocol: `icmp`)
 ** kubernetes api (Usually port `6443`)
-** ssh (I prefer to use a non-standard port since I want to provide a git-server on port `22`)
-** public services, e.g. http and https (port `80` and `443`)
-* Creating the kubernetes-servers in the public subnet
-* Creating the kubernetes-agents in the private subnet
-* Setting up routing on all servers
-* Setup SSH-connections
+** ssh (I prefer to use a non-standard port (usually port `1022`)
+** public services, e.g. http and https (port `80` and `443`) but also git-ssh (port `22`)
+* Creating the machines for kubernetes-servers in the public subnet
+* Creating the machines for kubernetes-agents in the private subnet
 * Creating DNS-records in Hetzer Cloud
 
 `k3s/`::
+* Setup SSH-connections
+* Setting up routing on all servers
 * Installing k3s
 * Keep the software up-to-date
+* Add foundational services to the cluster
 
 

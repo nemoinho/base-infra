@@ -2,6 +2,7 @@ inventory.*
 !inventory.ini.tftpl
 README.*
 !README.adoc
+password.txt
 
 # Created by https://www.toptal.com/developers/gitignore/api/vim,ansible,jetbrains,terraform
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,ansible,jetbrains,terraform
