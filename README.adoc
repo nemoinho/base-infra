@@ -102,6 +102,19 @@ To apply the playbook you may need to install additional packages:
 * python3-kubernetes (Debian/Ubuntu)
 --
 
+
+==== Configured tags
+
+init:: Everything needed for the initial setup
+add-server:: Everything needed to add a new https://docs.k3s.io/cli/server[server] to the cluster
+add-agent:: Everything needed to add a new https://docs.k3s.io/cli/agent[agent] to the cluster
+update:: Everything needed to update the cluster
+config:: Everything needed to update the local kube-config
+k8s:: Everything needed to provide the foundational services
+
+[TIP]
+The affected scope of the ansible-playbook can be limited with tags (`--tags tag1,tag2`):
+
 == Enlarge / Reduce size of cluster
 
 Increase::
