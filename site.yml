@@ -2,15 +2,15 @@
   gather_facts: no
   roles:
   - role: server-setup
-    tags:
-    - init
-    - add-server
+  tags:
+  - init
+  - add-server
 - hosts: agent
   roles:
   - role: agent-setup
-    tags:
-    - init
-    - add-agent
+  tags:
+  - init
+  - add-agent
 - import_playbook: k3s.orchestration.site
   tags:
   - init
@@ -22,13 +22,13 @@
 - hosts: server[0]
   roles:
   - role: kube-config
-    tags:
-    - init
-    - config
-    - update
+  tags:
+  - init
+  - config
+  - update
 - hosts: localhost
   roles:
   - role: k8s-setup
-    tags:
-    - init
-    - k8s
+  tags:
+  - init
+  - k8s
