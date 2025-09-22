@@ -28,6 +28,7 @@
   - config
   - update
 - hosts: localhost
+  gather_facts: no
   roles:
   - role: k8s-setup
   tags:
