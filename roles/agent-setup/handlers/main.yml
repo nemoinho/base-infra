@@ -1,3 +1,9 @@
+- name: Restart sshd
+  systemd_service:
+    name: ssh.socket
+    state: restarted
+    daemon_reload: true
+
 - name: Restart resolved
   service:
     name: systemd-resolved

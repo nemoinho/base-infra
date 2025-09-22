@@ -28,6 +28,11 @@
   when: target_ssh.unreachable is defined and
         target_ssh.unreachable == True
 
+- name: Ensure SSH is reloaded
+  meta: flush_handlers
+  when: target_ssh.unreachable is defined and
+        target_ssh.unreachable == True
+
 - name: Reset ansible_port to configured value
   set_fact:
     ansible_port: "{{ target_ansible_port }}"

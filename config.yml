@@ -1,6 +1,6 @@
 all:
   vars:
-    k8s_api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
+    api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
     cert_manager_state: present
     cert_manager_version: v1.18.2
     letsencrypt_clusterissuers:
@@ -19,7 +19,7 @@ k3s_cluster:
 
 agent:
   vars:
-    ansible_ssh_common_args: -o StrictHostKeyChecking=accept-new -o ProxyCommand="ssh -p 1022 -W %h:%p -q root@{{ k8s_api_endpoint }}"
+    ansible_ssh_common_args: -o StrictHostKeyChecking=accept-new -o ProxyCommand="ssh -p {{ hostvars[groups['server'][0]]['ansible_port'] }} -W %h:%p -q root@{{ api_endpoint }}"
     k3s_version: v1.31.6+k3s1
 
 server:

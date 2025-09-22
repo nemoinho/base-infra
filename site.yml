@@ -6,6 +6,7 @@
   - init
   - add-server
 - hosts: agent
+  gather_facts: no
   roles:
   - role: agent-setup
   tags:

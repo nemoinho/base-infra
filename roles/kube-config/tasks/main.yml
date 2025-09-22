@@ -15,5 +15,5 @@
   lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.kube/config"
     regexp: '^(\s*server: https://).*(:\d+)$'
-    line: \g<1>{{ k8s_api_endpoint }}\g<2>
+    line: \g<1>{{ api_endpoint }}\g<2>
     backrefs: yes

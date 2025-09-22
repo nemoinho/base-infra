@@ -3,9 +3,6 @@
 ${ip}
 %{endfor~}
 
-[server:vars]
-ansible_port=${ssh_port}
-
 [agent]
 %{for ip in agent_ips~}
 ${ip}
@@ -16,5 +13,6 @@ server
 agent
 
 [k3s_cluster:vars]
+ansible_port=${ssh_port}
 network_cidr=${network_cidr}
 private_nat=${private_nat}
