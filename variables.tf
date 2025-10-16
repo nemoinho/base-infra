@@ -11,16 +11,6 @@ variable "hetzner_cloud_apitoken" {
   type = string
 }
 
-variable "nehrke_info_dkim" {
-  type      = string
-  sensitive = true
-}
-
-variable "sozpaedil_net_dkim" {
-  type      = string
-  sensitive = true
-}
-
 variable "ssh_keys" {
   type = map(string)
 }
@@ -71,4 +61,24 @@ variable "k8s_agent_count" {
 variable "k8s_agent_type" {
   type    = string
   default = "cax11"
+}
+
+variable "dns_zones" {
+  type = map(object({
+    zone_ttl = optional(number, 900)
+    default_A = optional(bool, true)
+    default_AAAA = optional(bool, true)
+    custom_records = optional(set(object({
+      name = string
+      value = string
+      type = string
+      ttl = optional(number, null)
+    })), [])
+  }))
+  description = <<EOF
+  A map of dns-zones to be configured in the hetzner-dns system.
+  The fields default_A and default_AAAA control if the records gets a default A and AAAA record.
+  This default-record will point to the kubernetes-cluster.
+  If this is not desired, simply set these to false and apply a custom-record.
+  EOF
 }

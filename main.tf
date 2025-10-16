@@ -70,91 +70,20 @@ resource "local_file" "ansible_inventory" {
 
 locals {
   dns_zones = {
-    # costs-table (incl. taxes):
-    #  domain | amount | hetzner (einzel) | tecspace (einzel)
-    # --------+--------+------------------+-------------------
-    #      de |      3 |  35.70€ (11.90€) |  15.85€   (5.95€)
-    #    info |      1 |  30.94€ (30.94€) |  21.95€  (21.95€)
-    #     net |      2 |  33.32€ (16.66€) |  35.90€  (17.95€)
-    #     org |      1 |  17.85€ (17.85€) |  21.95€  (21.95€)
-    # --------+--------+------------------+-------------------
-    #     sum |      7 | 117.21€          |  97.65€
-    #
-    # Note, that Hetzner usually shows prices w/o taxes!
-    #
-    # Reference: https://www.hetzner.com/de/whois/
-    # Reference: https://www.tecspace.de/domain-preisliste
-    "goperte.de" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-      ]
-    },
-    "nehrke.info" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "@", ttl = 86400, type = "MX", value = "1 smtp.google.com." },
-        { name = "@", ttl = 86400, type = "TXT", value = "v=spf1 include:_spf.google.com a mx ~all" },
-        { name = "_dmarc", ttl = 86400, type = "TXT", value = "v=DMARC1; p=none;" },
-        { name = "google._domainkey", ttl = 86400, type = "TXT", value = var.nehrke_info_dkim },
-      ]
-    },
-    "sozpaedil.net" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "@", ttl = 86400, type = "MX", value = "1 smtp.google.com." },
-        { name = "@", ttl = 86400, type = "TXT", value = "v=spf1 include:_spf.google.com a mx ~all" },
-        { name = "_dmarc", ttl = 86400, type = "TXT", value = "v=DMARC1; p=none;" },
-        { name = "google._domainkey", ttl = 86400, type = "TXT", value = var.sozpaedil_net_dkim },
-      ]
-    },
-    "tovot.de" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-      ]
-    },
-    "tovot.net" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-      ]
-    },
-    "tovot.org" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-      ]
-    },
-    "xn--alleingnger-r8a.de" = {
-      zone_ttl = 900
-      records = [
-        { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-        { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-        { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-      ]
-    },
+    for key, values in var.dns_zones : key => {
+      zone_ttl = values.zone_ttl
+      records = toset(concat(
+        values.default_A ? [
+          { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+          { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+        ] : [],
+        values.default_AAAA ? [
+          { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+          { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+        ] : [],
+        tolist(values.custom_records)
+      ))
+    }
   }
 }
 
