@@ -1,0 +1,43 @@
+- name: Deploy cert manager {{ cert_manager_version }}
+  kubernetes.core.helm:
+    name: cert-manager
+    chart_ref: "oci://quay.io/jetstack/charts/cert-manager"
+    chart_version: "{{ cert_manager_version }}"
+    release_namespace: "cert-manager"
+    create_namespace: True
+    release_state: "{{ cert_manager_state }}"
+    set_values:
+    - value: crds.enabled=true
+
+- name: Provide let's encrypt clusterissuers
+  kubernetes.core.k8s:
+    definition:
+      apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
+      metadata:
+        name: "letsencrypt-{{ item.key }}"
+      spec:
+        acme:
+          email: "{{ item.value.email }}"
+          privateKeySecretRef:
+            name: "letsencrypt-{{ item.key }}"
+          server: "{{ item.value.server }}"
+          solvers:
+          - http01:
+              ingress:
+                class: "traefik"
+  loop: "{{ letsencrypt_clusterissuers | dict2items }}"
+
+- name: Ensure middleware to redirect http to https
+  kubernetes.core.k8s:
+    definition:
+      apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: redirect-https
+        namespace: default
+      spec:
+        redirectScheme:
+          scheme: https
+          permanent: true
+
