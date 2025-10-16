@@ -1,6 +1,11 @@
-variable "expose_kubernetes_and_ssh_ports" {
-  type    = bool
-  default = false
+variable "kubernetes_allowed_ips" {
+  type        = set(string)
+  description = "A set of IPs (IPv4 and IPv6) which have access to the kubernetes API."
+}
+
+variable "ssh_allowed_ips" {
+  type        = set(string)
+  description = "A set of IPs (IPv4 and IPv6) which can access the cluster via SSH."
 }
 
 variable "hetzner_dns_apitoken" {

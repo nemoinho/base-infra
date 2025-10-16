@@ -24,14 +24,6 @@ resource "hcloud_primary_ip" "k8s_ipv6" {
   auto_delete   = !var.k8s_test_installation
 }
 
-data "external" "my_ip" {
-  program = [
-    "sh",
-    "-c",
-    "(dig TXT +short -4 o-o.myaddr.l.google.com @ns1.google.com && dig TXT +short -6 o-o.myaddr.l.google.com @ns1.google.com) | jq '{(.): .}' | jq -s add"
-  ]
-}
-
 module "k8s" {
   source = "./modules/hetzner/kubernetes"
 
@@ -48,8 +40,8 @@ module "k8s" {
     location = var.k8s_location
     count    = var.k8s_agent_count
   }]
-  kubernetes_exposed_ips = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
-  ssh_exposed_ips        = var.expose_kubernetes_and_ssh_ports ? values(data.external.my_ip.result) : []
+  kubernetes_exposed_ips = var.kubernetes_allowed_ips
+  ssh_exposed_ips        = var.ssh_allowed_ips
   ssh_port               = 1022
   public_tcp_services = {
     git-ssh = ["22"]
