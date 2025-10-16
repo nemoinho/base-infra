@@ -3,3 +3,9 @@
   - k8s
   - cert-manager
   import_tasks: _cert-manager.yml
+
+- name: Ensure gitea
+  tags:
+  - k8s
+  - gitea
+  import_tasks: _gitea.yml

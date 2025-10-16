@@ -1,3 +1,11 @@
 cert_manager_state: present
 cert_manager_version: v1.18.2
 letsencrypt_clusterissuers: {}
+gitea_chart_version: 12.3.0
+gitea_state: present
+gitea_image_rootless: False
+gitea_image_pull_policy: IfNotPresent
+gitea_image: gitea-for-nehrke-info
+gitea_image_tag: latest
+gitea_image_registry: docker.nehrke.info
+

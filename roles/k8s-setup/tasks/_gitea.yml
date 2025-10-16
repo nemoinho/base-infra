@@ -1,0 +1,134 @@
+- name: Ensure gitea namespace
+  kubernetes.core.k8s:
+    state: "{{ gitea_state }}"
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: gitea
+        labels:
+          name: gitea
+
+- name: Ensure gitea imagePullSecrets
+  kubernetes.core.k8s:
+    state: "{{ gitea_state }}"
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: gitea-image-registry-secret
+        namespace: gitea
+      data:
+        .dockerconfigjson: "{{ gitea_image_registry_secret }}"
+      type: kubernetes.io/dockerconfigjson
+
+- name: Ensure custom gitea-templates
+  kubernetes.core.k8s:
+    state: "{{ gitea_state }}"
+    definition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: gitea-custom-templates
+        namespace: gitea
+      data:
+        header.tmpl: <link rel="stylesheet" href="{{ '{{' }}AppSubUrl{{ '}}' }}/assets/css/asciidoc.css" />
+
+- name: Ensure custom gitea-styles
+  kubernetes.core.k8s:
+    state: "{{ gitea_state }}"
+    definition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: gitea-custom-styles
+        namespace: gitea
+      data:
+        asciidoc.css: "{{ lookup('file', 'asciidoc.css') }}"
+
+- name: Deploy gitea {{ gitea_chart_version }}
+  kubernetes.core.helm:
+    name: gitea
+    chart_ref: oci://registry-1.docker.io/giteacharts/gitea
+    chart_version: "{{ gitea_chart_version }}"
+    release_namespace: "gitea"
+    release_state: "{{ gitea_state }}"
+    values:
+      imagePullSecrets: 
+      - name: gitea-image-registry-secret
+      image:
+        registry: "{{ gitea_image_registry }}"
+        repository: "{{ gitea_image }}"
+        tag: "{{ gitea_image_tag }}"
+        rootless: "{{ gitea_image_rootless }}"
+        pullPolicy: "{{ gitea_image_pull_policy }}"
+      ui:
+        AMBIGUOUS_UNICODE_DETECTION: "false"
+      gitea:
+        admin:
+          username: "{{ gitea_admin_user }}"
+          password: "{{ gitea_admin_password }}"
+          email: "{{ gitea_admin_email }}"
+        config:
+          APP_NAME: "Gitea: Mein kleiner git-server"
+          markup.plantuml:
+            ENABLED: "true"
+            NEED_POSTPROCESS: "false"
+            FILE_EXTENSIONS: .puml,.plantuml
+            RENDER_COMMAND: gitea-plantuml
+            IS_INPUT_FILE: "true"
+            RENDER_CONTENT_MODE: no-sanitizer
+          markup.asciidoc:
+            ENABLED: "true"
+            NEED_POSTPROCESS: "false"
+            FILE_EXTENSIONS: .adoc,.asciidoc
+            RENDER_COMMAND: gitea-asciidoc
+            IS_INPUT_FILE: "true"
+            RENDER_CONTENT_MODE: no-sanitizer
+          server:
+            # without this gravatar will not work!
+            OFFLINE_MODE: "false"
+      ingress:
+        enabled: True
+        annotations:
+          cert-manager.io/cluster-issuer: "{{ gitea_certificate_issuer }}"
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+        hosts:
+        - host: "{{ gitea_host }}"
+        tls:
+        - hosts:
+          - "{{ gitea_host }}"
+          secretName: gitea-tls
+      service:
+        ssh:
+          type: LoadBalancer
+      persistence:
+        size: 15Gi
+      postgresql:
+        enabled: False
+        primary:
+          persistence:
+            size: 2Gi
+      postgresql-ha:
+        enabled: True
+        persistence:
+          size: 2Gi
+      valkey:
+        enabled: True
+      valkey-cluster:
+        enabled: False
+      extraVolumes:
+      - name: gitea-custom-templates
+        configMap:
+          name: gitea-custom-templates
+      - name: gitea-custom-styles
+        configMap:
+          name: gitea-custom-styles
+      extraContainerVolumeMounts:
+      - name: gitea-custom-templates
+        readOnly: true
+        mountPath: /data/gitea/templates/custom
+      - name: gitea-custom-styles
+        readOnly: true
+        mountPath: /data/gitea/public/assets/css
+

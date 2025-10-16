@@ -10,6 +10,15 @@ all:
       prod:
         server: https://acme-v02.api.letsencrypt.org/directory
         email: "{{ vault_letsencrypt_issuer_email }}"
+    gitea_chart_version: 12.3.0
+    gitea_state: present
+    gitea_host: gitea.nehrke.info
+    gitea_certificate_issuer: letsencrypt-prod
+    gitea_image_pull_policy: Always
+    gitea_image_registry_secret: "{{ vault_gitea_pull_registry_secret | b64encode }}"
+    gitea_admin_user: "{{ vault_gitea_admin_user }}"
+    gitea_admin_password: "{{ vault_gitea_admin_password }}"
+    gitea_admin_email: "{{ vault_gitea_admin_email }}"
 
 k3s_cluster:
   vars:

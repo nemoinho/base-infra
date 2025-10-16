@@ -1,0 +1,882 @@
+.markup.asciidoc .admonitionblock td.icon i{display:block;width:1em;line-height:1;background-repeat:no-repeat !important}
+.markup.asciidoc .admonitionblock td.icon i::before{content:'' !important;display:block;height:1em;}
+.markup.asciidoc .admonitionblock td.icon i.icon-note {
+  background: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3e%3ccircle fill="%23eeeeee" r="11" cx="12" cy="12"/%3e%3cpath fill="%231a407c" d="M13%2c9H11V7H13M13%2c17H11V11H13M12%2c2A10%2c10 0 0%2c0 2%2c12A10%2c10 0 0%2c0 12%2c22A10%2c10 0 0%2c0 22%2c12A10%2c10 0 0%2c0 12%2c2Z"/%3e%3c/svg%3e')
+}
+.markup.asciidoc .admonitionblock td.icon i.icon-tip{
+  background: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3e%3cpath fill="%23808018" d="M20%2c11H23V13H20V11M1%2c11H4V13H1V11M13%2c1V4H11V1H13M4.92%2c3.5L7.05%2c5.64L5.63%2c7.05L3.5%2c4.93L4.92%2c3.5M16.95%2c5.63L19.07%2c3.5L20.5%2c4.93L18.37%2c7.05L16.95%2c5.63M12%2c6A6%2c6 0 0%2c1 18%2c12C18%2c14.22 16.79%2c16.16 15%2c17.2V19A1%2c1 0 0%2c1 14%2c20H10A1%2c1 0 0%2c1 9%2c19V17.2C7.21%2c16.16 6%2c14.22 6%2c12A6%2c6 0 0%2c1 12%2c6M14%2c21V22A1%2c1 0 0%2c1 13%2c23H11A1%2c1 0 0%2c1 10%2c22V21H14M11%2c18H13V15.87C14.73%2c15.43 16%2c13.86 16%2c12A4%2c4 0 0%2c0 12%2c8A4%2c4 0 0%2c0 8%2c12C8%2c13.86 9.27%2c15.43 11%2c15.87V18Z"/%3e%3c/svg%3e')
+}
+.markup.asciidoc .admonitionblock td.icon i.icon-warning{
+  background: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3e%3cpath fill="%23bf6900" d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z"/%3e%3c/svg%3e')
+}
+.markup.asciidoc .admonitionblock td.icon i.icon-caution{
+  background: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3e%3cpath fill="%23bf3400" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/%3e%3c/svg%3e')
+}
+.markup.asciidoc .admonitionblock td.icon i.icon-important{
+  background: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3e%3ccircle fill="%23eeeeee" r="9" cx="12" cy="12" /%3e%3cpath fill="%23bf0000" d="M13%2c13H11V7H13M13%2c17H11V15H13M12%2c2A10%2c10 0 0%2c0 2%2c12A10%2c10 0 0%2c0 12%2c22A10%2c10 0 0%2c0 22%2c12A10%2c10 0 0%2c0 12%2c2Z"/%3e%3c/svg%3e')
+}
+
+.markup.asciidoc .admonitionblock table tr,
+.markup.asciidoc .admonitionblock table td,
+.markup.asciidoc .colist table tr,
+.markup.asciidoc .colist table td {border: none !important}
+.markup.asciidoc .admonitionblock table td.icon,
+.markup.asciidoc .colist table td.icon {border-right: 1px solid #ccc !important}
+.markup.asciidoc .admonitionblock td.icon [class^="fa icon-"],
+.markup.asciidoc .colist td.icon [class^="fa icon-"] {font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.markup.asciidoc .admonitionblock td.icon .icon-note::before,
+.markup.asciidoc .colist td.icon .icon-note::before {content:"\f05a";color:#19407c}
+.markup.asciidoc .admonitionblock td.icon .icon-tip::before,
+.markup.asciidoc .colist td.icon .icon-tip::before {content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.markup.asciidoc .admonitionblock td.icon .icon-warning::before,
+.markup.asciidoc .colist td.icon .icon-warning::before {content:"\f071";color:#bf6900}
+.markup.asciidoc .admonitionblock td.icon .icon-caution::before,
+.markup.asciidoc .colist td.icon .icon-caution::before {content:"\f06d";color:#bf3400}
+.markup.asciidoc .admonitionblock td.icon .icon-important::before,
+.markup.asciidoc .colist td.icon .icon-important::before {content:"\f06a";color:#bf0000}
+.markup.asciidoc .admonitionblock table td.content
+.markup.asciidoc .colist table td.content {padding-left: 1.125em;padding-right: 1.25em;border-left: 1px solid #dddddf;color: rgba(0,0,0,.6)}
+.markup.asciidoc>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem!important;margin-bottom:1.25em}
+/* */
+.markup.asciidoc article,
+.markup.asciidoc aside,
+.markup.asciidoc details,
+.markup.asciidoc figcaption,
+.markup.asciidoc figure,
+.markup.asciidoc footer,
+.markup.asciidoc header,
+.markup.asciidoc hgroup,
+.markup.asciidoc main,
+.markup.asciidoc nav,
+.markup.asciidoc section{display:block}
+.markup.asciidoc audio,
+.markup.asciidoc video{display:inline-block}
+.markup.asciidoc audio:not([controls]){display:none;height:0}
+.markup.asciidoc html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+.markup.asciidoc a{background:none}
+.markup.asciidoc a:focus{outline:thin dotted}
+.markup.asciidoc a:active,
+.markup.asciidoc a:hover{outline:0}
+.markup.asciidoc h1{font-size:2em;margin:.67em 0}
+.markup.asciidoc abbr[title]{border-bottom:1px dotted}
+.markup.asciidoc b,
+.markup.asciidoc strong{font-weight:bold}
+.markup.asciidoc dfn{font-style:italic}
+.markup.asciidoc hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+.markup.asciidoc mark{background:#ff0;color:#000}
+.markup.asciidoc code,
+.markup.asciidoc kbd,
+.markup.asciidoc pre,
+.markup.asciidoc samp{font-family:monospace;font-size:1em}
+.markup.asciidoc pre{white-space:pre-wrap}
+.markup.asciidoc q{quotes:"\201C" "\201D" "\2018" "\2019"}
+.markup.asciidoc small{font-size:80%}
+.markup.asciidoc sub,
+.markup.asciidoc sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+.markup.asciidoc sup{top:-.5em}
+.markup.asciidoc sub{bottom:-.25em}
+.markup.asciidoc img{border:0}
+.markup.asciidoc svg:not(:root){overflow:hidden}
+.markup.asciidoc figure{margin:0}
+.markup.asciidoc fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+.markup.asciidoc legend{border:0;padding:0}
+.markup.asciidoc button,
+.markup.asciidoc input,
+.markup.asciidoc select,
+.markup.asciidoc textarea{font-family:inherit;font-size:100%;margin:0}
+.markup.asciidoc button,
+.markup.asciidoc input{line-height:normal}
+.markup.asciidoc button,
+.markup.asciidoc select{text-transform:none}
+.markup.asciidoc button,
+.markup.asciidoc html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+.markup.asciidoc button[disabled],html input[disabled]{cursor:default}
+.markup.asciidoc input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+.markup.asciidoc button::-moz-focus-inner,
+.markup.asciidoc input::-moz-focus-inner{border:0;padding:0}
+.markup.asciidoc textarea{overflow:auto;vertical-align:top}
+.markup.asciidoc table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+.markup.asciidoc html,
+.markup.asciidoc body{font-size:100%}
+.markup.asciidoc body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+.markup.asciidoc a:hover{cursor:pointer}
+.markup.asciidoc img,
+.markup.asciidoc object,
+.markup.asciidoc embed{max-width:100%;height:auto}
+.markup.asciidoc object,
+.markup.asciidoc embed{height:100%}
+.markup.asciidoc img{-ms-interpolation-mode:bicubic}
+.markup.asciidoc .left{float:left!important}
+.markup.asciidoc .right{float:right!important}
+.markup.asciidoc .text-left{text-align:left!important}
+.markup.asciidoc .text-right{text-align:right!important}
+.markup.asciidoc .text-center{text-align:center!important}
+.markup.asciidoc .text-justify{text-align:justify!important}
+.markup.asciidoc .hide{display:none}
+.markup.asciidoc img,
+.markup.asciidoc object,
+.markup.asciidoc svg{display:inline-block;vertical-align:middle}
+.markup.asciidoc textarea{height:auto;min-height:50px}
+.markup.asciidoc select{width:100%}
+.markup.asciidoc .center{margin-left:auto;margin-right:auto}
+.markup.asciidoc .stretch{width:100%}
+.markup.asciidoc .subheader,
+.markup.asciidoc .admonitionblock td.content>.title,
+.markup.asciidoc .audioblock>.title,
+.markup.asciidoc .exampleblock>.title,
+.markup.asciidoc .imageblock>.title,
+.markup.asciidoc .listingblock>.title,
+.markup.asciidoc .literalblock>.title,
+.markup.asciidoc .stemblock>.title,
+.markup.asciidoc .openblock>.title,
+.markup.asciidoc .paragraph>.title,
+.markup.asciidoc .quoteblock>.title,
+.markup.asciidoc table.tableblock>.title,
+.markup.asciidoc .verseblock>.title,
+.markup.asciidoc .videoblock>.title,
+.markup.asciidoc .dlist>.title,
+.markup.asciidoc .olist>.title,
+.markup.asciidoc .ulist>.title,
+.markup.asciidoc .qlist>.title,
+.markup.asciidoc .hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+.markup.asciidoc div,
+.markup.asciidoc dl,
+.markup.asciidoc dt,
+.markup.asciidoc dd,
+.markup.asciidoc ul,
+.markup.asciidoc ol,
+.markup.asciidoc li,
+.markup.asciidoc h1,
+.markup.asciidoc h2,
+.markup.asciidoc h3,#toctitle,
+.markup.asciidoc .sidebarblock>.content>.title,
+.markup.asciidoc h4,
+.markup.asciidoc h5,
+.markup.asciidoc h6,pre,
+.markup.asciidoc form,
+.markup.asciidoc p,blockquote,
+.markup.asciidoc th,
+.markup.asciidoc td{margin:0;padding:0;direction:ltr}
+.markup.asciidoc a{color:#2156a5;text-decoration:underline;line-height:inherit}
+.markup.asciidoc a:hover,
+.markup.asciidoc a:focus{color:#1d4b8f}
+.markup.asciidoc a img{border:0}
+.markup.asciidoc p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+.markup.asciidoc p aside{font-size:.875em;line-height:1.35;font-style:italic}
+.markup.asciidoc h1,
+.markup.asciidoc h2,
+.markup.asciidoc h3,
+.markup.asciidoc #toctitle,
+.markup.asciidoc .sidebarblock>.content>.title,
+.markup.asciidoc h4,
+.markup.asciidoc h5,
+.markup.asciidoc h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300!important;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em!important;margin-bottom:.5em;line-height:1.0125em}
+.markup.asciidoc h1 small,
+.markup.asciidoc h2 small,
+.markup.asciidoc h3 small,
+.markup.asciidoc #toctitle small,
+.markup.asciidoc .sidebarblock>.content>.title small,
+.markup.asciidoc h4 small,
+.markup.asciidoc h5 small,
+.markup.asciidoc h6 small{font-size:60%;color:#e99b8f;line-height:0}
+.markup.asciidoc h1{font-size:2.125em}
+.markup.asciidoc h2{font-size:1.6875em}
+.markup.asciidoc h3,#toctitle,
+.markup.asciidoc .sidebarblock>.content>.title{font-size:1.375em}
+.markup.asciidoc h4,
+.markup.asciidoc h5{font-size:1.125em}
+.markup.asciidoc h6{font-size:1em}
+.markup.asciidoc hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+.markup.asciidoc em,
+.markup.asciidoc i{font-style:italic;line-height:inherit}
+.markup.asciidoc strong,
+.markup.asciidoc b{font-weight:bold;line-height:inherit}
+.markup.asciidoc small{font-size:60%;line-height:inherit}
+.markup.asciidoc code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;white-space:normal;font-weight:400;color:rgba(0,0,0,.9)}
+.markup.asciidoc ul,
+.markup.asciidoc ol,
+.markup.asciidoc dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+.markup.asciidoc ul,
+.markup.asciidoc ol{margin-left:1.5em}
+.markup.asciidoc ul li ul,
+.markup.asciidoc ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+.markup.asciidoc ul.square li ul,
+.markup.asciidoc ul.circle li ul,
+.markup.asciidoc ul.disc li ul{list-style:inherit}
+.markup.asciidoc ul.square{list-style-type:square}
+.markup.asciidoc ul.circle{list-style-type:circle}
+.markup.asciidoc ul.disc{list-style-type:disc}
+.markup.asciidoc ol li ul,
+.markup.asciidoc ol li ol{margin-left:1.25em;margin-bottom:0}
+.markup.asciidoc dl dt{margin-bottom:.3125em;font-weight:bold}
+.markup.asciidoc dl dd{margin-bottom:1.25em}
+.markup.asciidoc abbr,
+.markup.asciidoc acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+.markup.asciidoc abbr{text-transform:none}
+.markup.asciidoc blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+.markup.asciidoc blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+.markup.asciidoc blockquote cite::before{content:"\2014 \0020"}
+.markup.asciidoc blockquote cite a,
+.markup.asciidoc blockquote cite a:visited{color:rgba(0,0,0,.6)}
+.markup.asciidoc blockquote,
+.markup.asciidoc blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){
+  .markup.asciidoc h1,
+  .markup.asciidoc h2,
+  .markup.asciidoc h3,
+  .markup.asciidoc #toctitle,
+  .markup.asciidoc .sidebarblock>.content>.title,
+  .markup.asciidoc h4,
+  .markup.asciidoc h5,
+  .markup.asciidoc h6{line-height:1.2}
+  .markup.asciidoc h1{font-size:2.75em}
+  .markup.asciidoc h2{font-size:2.3125em}
+  .markup.asciidoc h3,#toctitle,
+  .markup.asciidoc .sidebarblock>.content>.title{font-size:1.6875em}
+  .markup.asciidoc h4{font-size:1.4375em}
+}
+.markup.asciidoc table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+.markup.asciidoc table thead,
+.markup.asciidoc table tfoot{background:#f7f8f7}
+.markup.asciidoc table thead tr th,
+.markup.asciidoc table thead tr td,
+.markup.asciidoc table tfoot tr th,
+.markup.asciidoc table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+.markup.asciidoc table tr th,
+.markup.asciidoc table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+.markup.asciidoc table tr.even,
+.markup.asciidoc table tr.alt{background:#f8f8f7}
+.markup.asciidoc table thead tr th,
+.markup.asciidoc table tfoot tr th,
+.markup.asciidoc table tbody tr td,
+.markup.asciidoc table tr td,
+.markup.asciidoc table tfoot tr td{display:table-cell;line-height:1.6}
+.markup.asciidoc h1,
+.markup.asciidoc h2,
+.markup.asciidoc h3,#toctitle,
+.markup.asciidoc .sidebarblock>.content>.title,
+.markup.asciidoc h4,
+.markup.asciidoc h5,
+.markup.asciidoc h6{line-height:1.2;word-spacing:-.05em}
+.markup.asciidoc h1 strong,
+.markup.asciidoc h2 strong,
+.markup.asciidoc h3 strong,
+.markup.asciidoc #toctitle strong,
+.markup.asciidoc .sidebarblock>.content>.title strong,
+.markup.asciidoc h4 strong,
+.markup.asciidoc h5 strong,
+.markup.asciidoc h6 strong{font-weight:400}
+.markup.asciidoc .clearfix::before,
+.markup.asciidoc .clearfix::after,
+.markup.asciidoc .float-group::before,
+.markup.asciidoc .float-group::after{content:" ";display:table}
+.markup.asciidoc .clearfix::after,
+.markup.asciidoc .float-group::after{clear:both}
+.markup.asciidoc :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+.markup.asciidoc :not(pre)>code.nobreak{word-wrap:normal}
+.markup.asciidoc :not(pre)>code.nowrap{white-space:nowrap}
+.markup.asciidoc pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+.markup.asciidoc pre code,
+.markup.asciidoc pre pre{color:inherit;font-size:inherit;line-height:inherit;white-space:pre-wrap}
+.markup.asciidoc pre>code{display:block}
+.markup.asciidoc pre.nowrap,
+.markup.asciidoc pre.nowrap pre{white-space:pre;word-wrap:normal}
+.markup.asciidoc em em{font-style:normal}
+.markup.asciidoc strong strong{font-weight:400}
+.markup.asciidoc .keyseq{color:rgba(51,51,51,.8)}
+.markup.asciidoc kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.markup.asciidoc .keyseq kbd:first-child{margin-left:0}
+.markup.asciidoc .keyseq kbd:last-child{margin-right:0}
+.markup.asciidoc .menuseq,
+.markup.asciidoc .menuref{color:#000}
+.markup.asciidoc .menuseq b:not(.caret),.menuref{font-weight:inherit}
+.markup.asciidoc .menuseq{word-spacing:-.02em}
+.markup.asciidoc .menuseq b.caret{font-size:1.25em;line-height:.8}
+.markup.asciidoc .menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+.markup.asciidoc b.button::before,
+.markup.asciidoc b.button::after{position:relative;top:-1px;font-weight:400}
+.markup.asciidoc b.button::before{content:"[";padding:0 3px 0 2px}
+.markup.asciidoc b.button::after{content:"]";padding:0 2px 0 3px}
+.markup.asciidoc p a>code:hover{color:rgba(0,0,0,.9)}
+.markup.asciidoc #header,
+.markup.asciidoc #content,
+.markup.asciidoc #footnotes,
+.markup.asciidoc #footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+.markup.asciidoc #header::before,
+.markup.asciidoc #header::after,
+.markup.asciidoc #content::before,
+.markup.asciidoc #content::after,
+.markup.asciidoc #footnotes::before,
+.markup.asciidoc #footnotes::after,
+.markup.asciidoc #footer::before,
+.markup.asciidoc #footer::after{content:" ";display:table}
+.markup.asciidoc #header::after,
+.markup.asciidoc #content::after,
+.markup.asciidoc #footnotes::after,
+.markup.asciidoc #footer::after{clear:both}
+.markup.asciidoc #content{margin-top:1.25em}
+.markup.asciidoc #content::before{content:none}
+.markup.asciidoc #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+.markup.asciidoc #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+.markup.asciidoc #header>h1:only-child,
+.markup.asciidoc body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+.markup.asciidoc #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+.markup.asciidoc #header .details span:first-child{margin-left:-.125em}
+.markup.asciidoc #header .details span.email a{color:rgba(0,0,0,.85)}
+.markup.asciidoc #header .details br{display:none}
+.markup.asciidoc #header .details br+span::before{content:"\00a0\2013\00a0"}
+.markup.asciidoc #header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+.markup.asciidoc #header .details br+span#revremark::before{content:"\00a0|\00a0"}
+.markup.asciidoc #header #revnumber{text-transform:capitalize}
+.markup.asciidoc #header #revnumber::after{content:"\00a0"}
+.markup.asciidoc #content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+.markup.asciidoc #toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+.markup.asciidoc #toc>ul{margin-left:.125em}
+.markup.asciidoc #toc ul.sectlevel0>li>a{font-style:italic}
+.markup.asciidoc #toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+.markup.asciidoc #toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+.markup.asciidoc #toc li{line-height:1.3334;margin-top:.3334em}
+.markup.asciidoc #toc a{text-decoration:none}
+.markup.asciidoc #toc a:active{text-decoration:underline}
+.markup.asciidoc #toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){
+  .markup.asciidoc #toctitle{font-size:1.375em}
+  .markup.asciidoc body.toc2{padding-left:15em;padding-right:0}
+  .markup.asciidoc #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+  .markup.asciidoc #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+  .markup.asciidoc #toc.toc2>ul{font-size:.9em;margin-bottom:0}
+  .markup.asciidoc #toc.toc2 ul ul{margin-left:0;padding-left:1em}
+  .markup.asciidoc #toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+  .markup.asciidoc body.toc2.toc-right{padding-left:0;padding-right:15em}
+  .markup.asciidoc body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}
+}
+@media screen and (min-width:1280px){
+  .markup.asciidoc body.toc2{padding-left:20em;padding-right:0}
+  .markup.asciidoc #toc.toc2{width:20em}
+  .markup.asciidoc #toc.toc2 #toctitle{font-size:1.375em}
+  .markup.asciidoc #toc.toc2>ul{font-size:.95em}
+  .markup.asciidoc #toc.toc2 ul ul{padding-left:1.25em}
+  .markup.asciidoc body.toc2.toc-right{padding-left:0;padding-right:20em}
+}
+.markup.asciidoc #content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.markup.asciidoc #content #toc>:first-child{margin-top:0}
+.markup.asciidoc #content #toc>:last-child{margin-bottom:0}
+.markup.asciidoc #footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+.markup.asciidoc #footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.markup.asciidoc #content{margin-bottom:.625em}
+.markup.asciidoc .sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){
+  .markup.asciidoc #content{margin-bottom:1.25em}
+  .markup.asciidoc .sect1{padding-bottom:1.25em}
+}
+.markup.asciidoc .sect1:last-child{padding-bottom:0}
+.markup.asciidoc .sect1+.sect1{border-top:1px solid #e7e7e9}
+.markup.asciidoc #content h1>a.anchor,
+.markup.asciidoc h2>a.anchor,
+.markup.asciidoc h3>a.anchor,
+.markup.asciidoc #toctitle>a.anchor,
+.markup.asciidoc .sidebarblock>.content>.title>a.anchor,
+.markup.asciidoc h4>a.anchor,
+.markup.asciidoc h5>a.anchor,
+.markup.asciidoc h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+.markup.asciidoc #content h1>a.anchor::before,
+.markup.asciidoc h2>a.anchor::before,
+.markup.asciidoc h3>a.anchor::before,
+.markup.asciidoc #toctitle>a.anchor::before,
+.markup.asciidoc .sidebarblock>.content>.title>a.anchor::before,
+.markup.asciidoc h4>a.anchor::before,
+.markup.asciidoc h5>a.anchor::before,
+.markup.asciidoc h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+.markup.asciidoc #content h1:hover>a.anchor,
+.markup.asciidoc #content h1>a.anchor:hover,
+.markup.asciidoc h2:hover>a.anchor,
+.markup.asciidoc h2>a.anchor:hover,
+.markup.asciidoc h3:hover>a.anchor,
+.markup.asciidoc #toctitle:hover>a.anchor,
+.markup.asciidoc .sidebarblock>.content>.title:hover>a.anchor,
+.markup.asciidoc h3>a.anchor:hover,
+.markup.asciidoc #toctitle>a.anchor:hover,
+.markup.asciidoc .sidebarblock>.content>.title>a.anchor:hover,
+.markup.asciidoc h4:hover>a.anchor,
+.markup.asciidoc h4>a.anchor:hover,
+.markup.asciidoc h5:hover>a.anchor,
+.markup.asciidoc h5>a.anchor:hover,
+.markup.asciidoc h6:hover>a.anchor,
+.markup.asciidoc h6>a.anchor:hover{visibility:visible}
+.markup.asciidoc #content h1>a.link,
+.markup.asciidoc h2>a.link,
+.markup.asciidoc h3>a.link,
+.markup.asciidoc #toctitle>a.link,
+.markup.asciidoc .sidebarblock>.content>.title>a.link,
+.markup.asciidoc h4>a.link,
+.markup.asciidoc h5>a.link,
+.markup.asciidoc h6>a.link{color:#ba3925;text-decoration:none}
+.markup.asciidoc #content h1>a.link:hover,
+.markup.asciidoc h2>a.link:hover,
+.markup.asciidoc h3>a.link:hover,
+.markup.asciidoc #toctitle>a.link:hover,
+.markup.asciidoc .sidebarblock>.content>.title>a.link:hover,
+.markup.asciidoc h4>a.link:hover,
+.markup.asciidoc h5>a.link:hover,
+.markup.asciidoc h6>a.link:hover{color:#a53221}
+.markup.asciidoc details,
+.markup.asciidoc .audioblock,
+.markup.asciidoc .imageblock,
+.markup.asciidoc .literalblock,
+.markup.asciidoc .listingblock,
+.markup.asciidoc .stemblock,
+.markup.asciidoc .videoblock{margin-bottom:1.25em}
+.markup.asciidoc details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.markup.asciidoc .admonitionblock td.content>.title,
+.markup.asciidoc .audioblock>.title,
+.markup.asciidoc .exampleblock>.title,
+.markup.asciidoc .imageblock>.title,
+.markup.asciidoc .listingblock>.title,
+.markup.asciidoc .literalblock>.title,
+.markup.asciidoc .stemblock>.title,
+.markup.asciidoc .openblock>.title,
+.markup.asciidoc .paragraph>.title,
+.markup.asciidoc .quoteblock>.title,
+.markup.asciidoc table.tableblock>.title,
+.markup.asciidoc .verseblock>.title,
+.markup.asciidoc .videoblock>.title,
+.markup.asciidoc .dlist>.title,
+.markup.asciidoc .olist>.title,
+.markup.asciidoc .ulist>.title,
+.markup.asciidoc .qlist>.title,
+.markup.asciidoc .hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+.markup.asciidoc table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.markup.asciidoc .paragraph.lead>p,
+.markup.asciidoc #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.markup.asciidoc table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.markup.asciidoc .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.markup.asciidoc .admonitionblock>table td.icon{text-align:center;width:80px}
+.markup.asciidoc .admonitionblock>table td.icon img{max-width:none}
+.markup.asciidoc .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.markup.asciidoc .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.markup.asciidoc .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.markup.asciidoc .exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.markup.asciidoc .exampleblock>.content>:first-child{margin-top:0}
+.markup.asciidoc .exampleblock>.content>:last-child{margin-bottom:0}
+.markup.asciidoc .sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.markup.asciidoc .sidebarblock>:first-child{margin-top:0}
+.markup.asciidoc .sidebarblock>:last-child{margin-bottom:0}
+.markup.asciidoc .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.markup.asciidoc .exampleblock>.content>:last-child>:last-child,
+.markup.asciidoc .exampleblock>.content .olist>ol>li:last-child>:last-child,
+.markup.asciidoc .exampleblock>.content .ulist>ul>li:last-child>:last-child,
+.markup.asciidoc .exampleblock>.content .qlist>ol>li:last-child>:last-child,
+.markup.asciidoc .sidebarblock>.content>:last-child>:last-child,
+.markup.asciidoc .sidebarblock>.content .olist>ol>li:last-child>:last-child,
+.markup.asciidoc .sidebarblock>.content .ulist>ul>li:last-child>:last-child,
+.markup.asciidoc .sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.markup.asciidoc .literalblock pre,
+.markup.asciidoc .listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){
+  .markup.asciidoc .literalblock pre,
+  .markup.asciidoc .listingblock>.content>pre{font-size:.90625em}
+}
+@media screen and (min-width:1280px){
+  .markup.asciidoc .literalblock pre,
+  .markup.asciidoc .listingblock>.content>pre{font-size:1em}
+}
+.markup.asciidoc .literalblock pre,
+.markup.asciidoc .listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.markup.asciidoc .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.markup.asciidoc .listingblock>.content{position:relative}
+.markup.asciidoc .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.markup.asciidoc .listingblock:hover code[data-lang]::before{display:block}
+.markup.asciidoc .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.markup.asciidoc .listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.markup.asciidoc .listingblock pre.highlightjs{padding:0}
+.markup.asciidoc .listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.markup.asciidoc .listingblock pre.prettyprint{border-width:0}
+.markup.asciidoc .prettyprint{background:#f7f7f8}
+.markup.asciidoc pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+.markup.asciidoc pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+.markup.asciidoc pre.prettyprint li code[data-lang]::before{opacity:1}
+.markup.asciidoc pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+.markup.asciidoc table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+.markup.asciidoc table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+.markup.asciidoc table.linenotable td.code{padding-left:.75em}
+.markup.asciidoc table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+.markup.asciidoc pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+.markup.asciidoc pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.markup.asciidoc .quoteblock{margin:0 1em 1.25em 1.5em}
+.markup.asciidoc .quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.markup.asciidoc .quoteblock blockquote,
+.markup.asciidoc .quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.markup.asciidoc .quoteblock blockquote{margin:0;padding:0;border:0}
+.markup.asciidoc .quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.markup.asciidoc .quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.markup.asciidoc .quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.markup.asciidoc .verseblock{margin:0 1em 1.25em}
+.markup.asciidoc .verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.markup.asciidoc .verseblock pre strong{font-weight:400}
+.markup.asciidoc .verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.markup.asciidoc .quoteblock .attribution,
+.markup.asciidoc .verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.markup.asciidoc .quoteblock .attribution br,
+.markup.asciidoc .verseblock .attribution br{display:none}
+.markup.asciidoc .quoteblock .attribution cite,
+.markup.asciidoc .verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.markup.asciidoc .quoteblock.abstract blockquote::before,
+.markup.asciidoc .quoteblock.excerpt blockquote::before,
+.markup.asciidoc .quoteblock .quoteblock blockquote::before{display:none}
+.markup.asciidoc .quoteblock.abstract blockquote,
+.markup.asciidoc .quoteblock.abstract p,
+.markup.asciidoc .quoteblock.excerpt blockquote,
+.markup.asciidoc .quoteblock.excerpt p,
+.markup.asciidoc .quoteblock .quoteblock blockquote,
+.markup.asciidoc .quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.markup.asciidoc .quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.markup.asciidoc .quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.markup.asciidoc .quoteblock.excerpt>blockquote,
+.markup.asciidoc .quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.markup.asciidoc .quoteblock.excerpt,
+.markup.asciidoc .quoteblock .quoteblock{margin-left:0}
+.markup.asciidoc .quoteblock.excerpt blockquote,
+.markup.asciidoc .quoteblock.excerpt p,
+.markup.asciidoc .quoteblock .quoteblock blockquote,
+.markup.asciidoc .quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.markup.asciidoc .quoteblock.excerpt .attribution,
+.markup.asciidoc .quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+.markup.asciidoc table.tableblock{max-width:100%;border-collapse:separate}
+.markup.asciidoc p.tableblock:last-child{margin-bottom:0}
+.markup.asciidoc td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+.markup.asciidoc td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+.markup.asciidoc table.tableblock,
+.markup.asciidoc th.tableblock,
+.markup.asciidoc td.tableblock{border:0 solid #dedede}
+.markup.asciidoc table.grid-all>thead>tr>.tableblock,
+.markup.asciidoc table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+.markup.asciidoc table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+.markup.asciidoc table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+.markup.asciidoc table.grid-rows>thead>tr>.tableblock,
+.markup.asciidoc table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+.markup.asciidoc table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+.markup.asciidoc table.grid-all>*>tr>.tableblock:last-child,
+.markup.asciidoc table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+.markup.asciidoc table.grid-all>tbody>tr:last-child>.tableblock,
+.markup.asciidoc table.grid-all>thead:last-child>tr>.tableblock,
+.markup.asciidoc table.grid-rows>tbody>tr:last-child>.tableblock,
+.markup.asciidoc table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+.markup.asciidoc table.frame-all{border-width:1px}
+.markup.asciidoc table.frame-sides{border-width:0 1px}
+.markup.asciidoc table.frame-topbot,
+.markup.asciidoc table.frame-ends{border-width:1px 0}
+.markup.asciidoc table.stripes-all tr,
+.markup.asciidoc table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+.markup.asciidoc th.halign-left,
+.markup.asciidoc td.halign-left{text-align:left}
+.markup.asciidoc th.halign-right,
+.markup.asciidoc td.halign-right{text-align:right}
+.markup.asciidoc th.halign-center,
+.markup.asciidoc td.halign-center{text-align:center}
+.markup.asciidoc th.valign-top,
+.markup.asciidoc td.valign-top{vertical-align:top}
+.markup.asciidoc th.valign-bottom,
+.markup.asciidoc td.valign-bottom{vertical-align:bottom}
+.markup.asciidoc th.valign-middle,
+.markup.asciidoc td.valign-middle{vertical-align:middle}
+.markup.asciidoc table thead th,
+.markup.asciidoc table tfoot th{font-weight:bold}
+.markup.asciidoc tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+.markup.asciidoc tbody tr th,
+.markup.asciidoc tbody tr th p,
+.markup.asciidoc tfoot tr th,
+.markup.asciidoc tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+.markup.asciidoc p.tableblock>code:only-child{background:none;padding:0}
+.markup.asciidoc p.tableblock{font-size:1em}
+.markup.asciidoc ol{margin-left:1.75em}
+.markup.asciidoc ul li ol{margin-left:1.5em}
+.markup.asciidoc dl dd{margin-left:1.125em}
+.markup.asciidoc dl dd:last-child,
+.markup.asciidoc dl dd:last-child>:last-child{margin-bottom:0}
+.markup.asciidoc ol>li p,
+.markup.asciidoc ul>li p,
+.markup.asciidoc ul dd,
+.markup.asciidoc ol dd,
+.markup.asciidoc .olist .olist,
+.markup.asciidoc .ulist .ulist,
+.markup.asciidoc .ulist .olist,
+.markup.asciidoc .olist .ulist{margin-bottom:.625em}
+.markup.asciidoc ul.checklist,
+.markup.asciidoc ul.none,
+.markup.asciidoc ol.none,
+.markup.asciidoc ul.no-bullet,
+.markup.asciidoc ol.no-bullet,
+.markup.asciidoc ol.unnumbered,
+.markup.asciidoc ul.unstyled,
+.markup.asciidoc ol.unstyled{list-style-type:none}
+.markup.asciidoc ul.no-bullet,
+.markup.asciidoc ol.no-bullet,
+.markup.asciidoc ol.unnumbered{margin-left:.625em}
+.markup.asciidoc ul.unstyled,
+.markup.asciidoc ol.unstyled{margin-left:0}
+.markup.asciidoc ul.checklist{margin-left:.625em}
+.markup.asciidoc ul.checklist li>p:first-child>.fa-square-o:first-child,
+.markup.asciidoc ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+.markup.asciidoc ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+.markup.asciidoc ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+.markup.asciidoc ul.inline>li{margin-left:1.25em}
+.markup.asciidoc .unstyled dl dt{font-weight:400;font-style:normal}
+.markup.asciidoc ol.arabic{list-style-type:decimal}
+.markup.asciidoc ol.decimal{list-style-type:decimal-leading-zero}
+.markup.asciidoc ol.loweralpha{list-style-type:lower-alpha}
+.markup.asciidoc ol.upperalpha{list-style-type:upper-alpha}
+.markup.asciidoc ol.lowerroman{list-style-type:lower-roman}
+.markup.asciidoc ol.upperroman{list-style-type:upper-roman}
+.markup.asciidoc ol.lowergreek{list-style-type:lower-greek}
+.markup.asciidoc .hdlist>table,
+.markup.asciidoc .colist>table{border:0;background:none}
+.markup.asciidoc .hdlist>table>tbody>tr,
+.markup.asciidoc .colist>table>tbody>tr{background:none}
+.markup.asciidoc td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+.markup.asciidoc td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.markup.asciidoc .literalblock+.colist,
+.markup.asciidoc .listingblock+.colist{margin-top:-.5em}
+.markup.asciidoc .colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.markup.asciidoc .colist td:not([class]):first-child img{max-width:none}
+.markup.asciidoc .colist td:not([class]):last-child{padding:.25em 0}
+.markup.asciidoc .thumb,
+.markup.asciidoc .th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.markup.asciidoc .imageblock.left{margin:.25em .625em 1.25em 0}
+.markup.asciidoc .imageblock.right{margin:.25em 0 1.25em .625em}
+.markup.asciidoc .imageblock>.title{margin-bottom:0}
+.markup.asciidoc .imageblock.thumb,
+.markup.asciidoc .imageblock.th{border-width:6px}
+.markup.asciidoc .imageblock.thumb>.title,
+.markup.asciidoc .imageblock.th>.title{padding:0 .125em}
+.markup.asciidoc .image.left,
+.markup.asciidoc .image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.markup.asciidoc .image.left{margin-right:.625em}
+.markup.asciidoc .image.right{margin-left:.625em}
+.markup.asciidoc a.image{text-decoration:none;display:inline-block}
+.markup.asciidoc a.image object{pointer-events:none}
+.markup.asciidoc sup.footnote,
+.markup.asciidoc sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+.markup.asciidoc sup.footnote a,
+.markup.asciidoc sup.footnoteref a{text-decoration:none}
+.markup.asciidoc sup.footnote a:active,
+.markup.asciidoc sup.footnoteref a:active{text-decoration:underline}
+.markup.asciidoc #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+.markup.asciidoc #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+.markup.asciidoc #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+.markup.asciidoc #footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+.markup.asciidoc #footnotes .footnote:last-of-type{margin-bottom:0}
+.markup.asciidoc #content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.markup.asciidoc .gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.markup.asciidoc .gist .file-data>table td.line-data{width:99%}
+.markup.asciidoc div.unbreakable{page-break-inside:avoid}
+.markup.asciidoc .big{font-size:larger}
+.markup.asciidoc .small{font-size:smaller}
+.markup.asciidoc .underline{text-decoration:underline}
+.markup.asciidoc .overline{text-decoration:overline}
+.markup.asciidoc .line-through{text-decoration:line-through}
+.markup.asciidoc .aqua{color:#00bfbf}
+.markup.asciidoc .aqua-background{background:#00fafa}
+.markup.asciidoc .black{color:#000}
+.markup.asciidoc .black-background{background:#000}
+.markup.asciidoc .blue{color:#0000bf}
+.markup.asciidoc .blue-background{background:#0000fa}
+.markup.asciidoc .fuchsia{color:#bf00bf}
+.markup.asciidoc .fuchsia-background{background:#fa00fa}
+.markup.asciidoc .gray{color:#606060}
+.markup.asciidoc .gray-background{background:#7d7d7d}
+.markup.asciidoc .green{color:#006000}
+.markup.asciidoc .green-background{background:#007d00}
+.markup.asciidoc .lime{color:#00bf00}
+.markup.asciidoc .lime-background{background:#00fa00}
+.markup.asciidoc .maroon{color:#600000}
+.markup.asciidoc .maroon-background{background:#7d0000}
+.markup.asciidoc .navy{color:#000060}
+.markup.asciidoc .navy-background{background:#00007d}
+.markup.asciidoc .olive{color:#606000}
+.markup.asciidoc .olive-background{background:#7d7d00}
+.markup.asciidoc .purple{color:#600060}
+.markup.asciidoc .purple-background{background:#7d007d}
+.markup.asciidoc .red{color:#bf0000}
+.markup.asciidoc .red-background{background:#fa0000}
+.markup.asciidoc .silver{color:#909090}
+.markup.asciidoc .silver-background{background:#bcbcbc}
+.markup.asciidoc .teal{color:#006060}
+.markup.asciidoc .teal-background{background:#007d7d}
+.markup.asciidoc .white{color:#bfbfbf}
+.markup.asciidoc .white-background{background:#fafafa}
+.markup.asciidoc .yellow{color:#bfbf00}
+.markup.asciidoc .yellow-background{background:#fafa00}
+.markup.asciidoc span.icon>.fa{cursor:default}
+.markup.asciidoc a span.icon>.fa{cursor:inherit}
+.markup.asciidoc .admonitionblock td.icon [class^="fa icon-"]{font-style:normal;font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.markup.asciidoc .admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.markup.asciidoc .admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.markup.asciidoc .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.markup.asciidoc .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.markup.asciidoc .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.markup.asciidoc .conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.markup.asciidoc .conum[data-value] *{color:#fff!important}
+.markup.asciidoc .conum[data-value]+b{display:none}
+.markup.asciidoc .conum[data-value]::after{content:attr(data-value)}
+.markup.asciidoc pre .conum[data-value]{position:relative;top:-.125em}
+.markup.asciidoc b.conum *{color:inherit!important}
+.markup.asciidoc .conum:not([data-value]):empty{display:none}
+.markup.asciidoc dt,
+.markup.asciidoc th.tableblock,
+.markup.asciidoc td.content,
+.markup.asciidoc div.footnote{text-rendering:optimizeLegibility}
+.markup.asciidoc h1,
+.markup.asciidoc h2,p,
+.markup.asciidoc td.content,
+.markup.asciidoc span.alt{letter-spacing:-.01em}
+.markup.asciidoc p strong,
+.markup.asciidoc td.content strong,
+.markup.asciidoc div.footnote strong{letter-spacing:-.005em}
+.markup.asciidoc p,
+.markup.asciidoc blockquote,
+.markup.asciidoc dt,
+.markup.asciidoc td.content,
+.markup.asciidoc span.alt{font-size:1.0625rem}
+.markup.asciidoc p{margin-bottom:1.25rem}
+.markup.asciidoc .sidebarblock p,
+.markup.asciidoc .sidebarblock dt,
+.markup.asciidoc .sidebarblock td.content,
+.markup.asciidoc p.tableblock{font-size:1em}
+.markup.asciidoc .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.markup.asciidoc .print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{
+  *{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+  .markup.asciidoc html{font-size:80%}
+  .markup.asciidoc a{color:inherit!important;text-decoration:underline!important}
+  .markup.asciidoc a.bare,
+  .markup.asciidoc a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+  .markup.asciidoc a[href^="http:"]:not(.bare)::after,
+  .markup.asciidoc a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+  .markup.asciidoc abbr[title]::after{content:" (" attr(title) ")"}
+  .markup.asciidoc pre,
+  .markup.asciidoc blockquote,
+  .markup.asciidoc tr,
+  .markup.asciidoc img,
+  .markup.asciidoc object,
+  .markup.asciidoc svg{page-break-inside:avoid}
+  .markup.asciidoc thead{display:table-header-group}
+  .markup.asciidoc svg{max-width:100%}
+  .markup.asciidoc p,
+  .markup.asciidoc blockquote,
+  .markup.asciidoc dt,
+  .markup.asciidoc td.content{font-size:1em;orphans:3;widows:3}
+  .markup.asciidoc h2,
+  .markup.asciidoc h3,#toctitle,
+  .markup.asciidoc .sidebarblock>.content>.title{page-break-after:avoid}
+  .markup.asciidoc #toc,
+  .markup.asciidoc .sidebarblock,
+  .markup.asciidoc .exampleblock>.content{background:none!important}
+  .markup.asciidoc #toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+  .markup.asciidoc body.book #header{text-align:center}
+  .markup.asciidoc body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+  .markup.asciidoc body.book #header .details{border:0!important;display:block;padding:0!important}
+  .markup.asciidoc body.book #header .details span:first-child{margin-left:0!important}
+  .markup.asciidoc body.book #header .details br{display:block}
+  .markup.asciidoc body.book #header .details br+span::before{content:none!important}
+  .markup.asciidoc body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+  .markup.asciidoc body.book #toc,
+  .markup.asciidoc body.book #preamble,
+  .markup.asciidoc body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+  .markup.asciidoc .listingblock code[data-lang]::before{display:block}
+  .markup.asciidoc #footer{padding:0 .9375em}
+  .markup.asciidoc .hide-on-print{display:none!important}
+  .markup.asciidoc .print-only{display:block!important}
+  .markup.asciidoc .hide-for-print{display:none!important}
+  .markup.asciidoc .show-for-print{display:inherit!important}
+}
+@media print, amzn-kf8{
+  .markup.asciidoc #header>h1:first-child{margin-top:1.25rem}
+  .markup.asciidoc .sect1{padding:0!important}
+  .markup.asciidoc .sect1+.sect1{border:0}
+  .markup.asciidoc #footer{background:none}
+  .markup.asciidoc #footer-text{color:rgba(0,0,0,.6);font-size:.9em}
+}
+@media amzn-kf8{
+  .markup.asciidoc #header,
+  .markup.asciidoc #content,
+  .markup.asciidoc #footnotes,
+  .markup.asciidoc #footer{padding:0}
+}
+/* */
+
+.markup.asciidoc .pygments{color:light-dark(#272822, #f8f8f2);background:light-dark(#f0f0f0, #272822)}
+.markup.asciidoc .tok-err{color:#960050;background:#1e0010}
+.markup.asciidoc .tok-lntd{vertical-align:top}
+.markup.asciidoc .tok-lntable{display:block}
+.markup.asciidoc .tok-hl{display:block;width:100%;background:#ffc}
+.markup.asciidoc .tok-lnt{margin-right:.4em;padding:0 .4em;color:#7f7f7f}
+.markup.asciidoc .tok-ln{margin-right:.4em;padding:0 .4em;color:#7f7f7f}
+.markup.asciidoc .tok-k{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-kc{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-kd{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-kn{color:light-dark(#f92672, #f92672)}
+.markup.asciidoc .tok-kp{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-kr{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-kt{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-n{color:#111}
+.markup.asciidoc .tok-na{color:light-dark(#75af00, #a6e22e)}
+.markup.asciidoc .tok-nb{color:#111}
+.markup.asciidoc .tok-bp{color:#111}
+.markup.asciidoc .tok-nc{color:light-dark(#75af00, #a6e22e)}
+.markup.asciidoc .tok-no{color:light-dark(#00a8c8, #66d9ef)}
+.markup.asciidoc .tok-nd{color:light-dark(#75af00, #a6e22e)}
+.markup.asciidoc .tok-ni{color:#111}
+.markup.asciidoc .tok-ne{color:light-dark(#75af00, #a6e22e)}
+.markup.asciidoc .tok-nf{color:light-dark(#75af00, #a6e22e)}
+.markup.asciidoc .tok-fm{color:#111}
+.markup.asciidoc .tok-nl{color:#111}
+.markup.asciidoc .tok-nn{color:#111}
+.markup.asciidoc .tok-nx{color:light-dark(#75af00, #a6e22e)}
+.markup.asciidoc .tok-py{color:#111}
+.markup.asciidoc .tok-nt{color:light-dark(#f92672, #f92672)}
+.markup.asciidoc .tok-nv{color:#111}
+.markup.asciidoc .tok-vc{color:#111}
+.markup.asciidoc .tok-vg{color:#111}
+.markup.asciidoc .tok-vi{color:#111}
+.markup.asciidoc .tok-vm{color:#111}
+.markup.asciidoc .tok-l{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-ld{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-s{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-sa{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-sb{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-sc{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-dl{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-sd{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-s2{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-se{color:light-dark(#8045ff, #ae81ff)}
+.markup.asciidoc .tok-sh{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-si{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-sx{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-sr{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-s1{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-ss{color:light-dark(#d88200, #e6db74)}
+.markup.asciidoc .tok-m{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-mb{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-mf{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-mh{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-mi{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-il{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-mo{color:light-dark(#ae81ff, #ae81ff)}
+.markup.asciidoc .tok-o{color:light-dark(#f92672, #f92672)}
+.markup.asciidoc .tok-ow{color:light-dark(#f92672, #f92672)}
+.markup.asciidoc .tok-p{color:#111}
+.markup.asciidoc .tok-c{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-ch{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-cm{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-c1{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-cs{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-cp{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-cpf{color:light-dark(#75715e, #75715e)}
+.markup.asciidoc .tok-gd{color:light-dark(inherit, #f92672)}
+.markup.asciidoc .tok-ge{font-style:italic}
+.markup.asciidoc .tok-gi{color:light-dark(inherit, #a6e22e)}
+.markup.asciidoc .tok-gs{font-weight:bold}
+.markup.asciidoc .tok-gu{color:light-dark(inherit, #75715e)}
+
