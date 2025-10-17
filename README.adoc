@@ -1,11 +1,16 @@
-= Hetzer Infra
+= Web Infra
 :icons: font
 
-This repository is meant to setup my kubernetes-cluster on Hetzner Cloud.
-The setup is split into 2 dedicated parts:
+This project is meant to setup my base infrastructure for the web.
+In particular it will perform the following tasks:
 
-. Create necessary machines in Hetzner Cloud via terraform.
-. Install/Upgrade kubernetes-cluster and other software via ansible.
+* Setup Kubernetes cluster on Hetzner Cloud
+* Maintain keys for Backblaze (b2)
+
+To achieve the goal of having a working base infrastructure for the web the setup is split into 2 dedicated steps:
+
+. Create static assets like machines for Kubernetes and access-keys via Terraform
+. Install/Upgrade Kubernetes-cluster and other software via Ansible.
 
 == TL;DR
 
@@ -27,12 +32,12 @@ ansible-playbook site.yml
 
 The project is split into different steps, each responsible for another task.
 
-=== terraform
-I use terraform to provide the required infrastructure to run a kubernetes-cluster.
+=== Terraform
+I use Terraform to provide the required infrastructure to run a Kubernetes-cluster.
 
 [WARNING]
 Make sure `config.auto.tfvars` with all the needed configuration-secrets is present otherwise the module cannot be applied!
-The file is savely stored in the password-manager.
+The file is safely stored in the password-manager.
 
 [source,bash]
 ----
@@ -40,17 +45,17 @@ terraform init # <1>
 terraform apply # <2>
 ----
 
-<1> Init the terraform modules if necessary
+<1> Initialize the Terraform modules if necessary
 <2> Setup infrastructure and create/update inventory.ini
 
 [WARNING]
-The setup will take longer than just the `terraform apply`, since terraform returns as soon as the machine is provided.
+The setup will take longer than just the `terraform apply`, since Terraform returns as soon as the machine is provided.
 Though it hasn't been started the machines, yet.
 As a rule of thumb wait ca. 5 minutes after the apply to do other work.
 
-=== ansible
+=== Ansible
 
-Use ansible to setup a k3s installation and provide a set of foundational services in the cluster.
+Use Ansible to setup a k3s installation and provide a set of foundational services in the cluster.
 The provided services are:
 
 https://cert-manager.io/docs/installation/helm[cert-manager]::
@@ -78,7 +83,7 @@ A secure and reliable tool to share password.
 TODO: Not setup yet!
 
 [NOTE]
-The k3s-setup requires a `inventory.ini` which is automatically created by terraform.
+The k3s-setup requires a `inventory.ini` which is automatically created by Terraform.
 So, make sure to apply the infra at least once, before running these playbooks.
 
 [source,bash]
@@ -87,7 +92,7 @@ ansible-galaxy install -r requirements.yml # <1>
 ansible-playbook site.yml # <2>
 ----
 
-<1> Install required ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
+<1> Install required Ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
 <2> Install k3s and download kube-config to .kube/config
 
 [IMPORTANT]
@@ -130,26 +135,26 @@ Instead proceed as the following:
 . Open k9s and go to `:nodes`
 . Select the highest agent and press `r` to drain it
 . Afterward that succeeded delete it with `Ctrl-d`
-. Finally reduce the amount of agents in terraform and apply the change
+. Finally reduce the amount of agents in Terraform and apply the change
 --
 
 == Responsibilities
 
-terraform::
-* Creation of network for the kubernetes-cluster
-** A public subnet exposed to the internet for the kubernetes-servers
-** A private subnet for the kubernetes-agents
+Terraform::
+* Creation of network for the Kubernetes-cluster
+** A public subnet exposed to the internet for the Kubernetes-servers
+** A private subnet for the Kubernetes-agents
 * Routing between the networks
 * Firewall rules to block everything from the servers except of:
 ** ping (protocol: `icmp`)
-** kubernetes api (Usually port `6443`)
+** Kubernetes API (Usually port `6443`)
 ** ssh (I prefer to use a non-standard port (usually port `1022`)
 ** public services, e.g. http and https (port `80` and `443`) but also git-ssh (port `22`)
-* Creating the machines for kubernetes-servers in the public subnet
-* Creating the machines for kubernetes-agents in the private subnet
+* Creating the machines for Kubernetes-servers in the public subnet
+* Creating the machines for Kubernetes-agents in the private subnet
 * Creating DNS-records in Hetzer Cloud
 
-ansible::
+Ansible::
 * Setup SSH-connections
 * Setting up routing on all servers
 * Installing k3s
