@@ -20,43 +20,30 @@ variable "ssh_keys" {
   type = map(string)
 }
 
-# Right now this only supports 1 location, but that's okay for me!
-variable "k8s_location" {
-  type        = string
+variable "k8s_servers" {
+  type = list(object({
+    type          = optional(string, "cax11")
+    location      = string
+    ip_datacenter = string
+  }))
   description = <<EOF
-  This is the location where I host the k8s-cluster.
-  An overview of possible locations can be found at: https://docs.hetzner.com/cloud/general/locations/
+  The servers of the kubernetes-cluster.
+  This should always contain an off number of servers.
+  An overview of locations can be found at: https://docs.hetzner.com/cloud/general/locations/
+  Note, that the ip_datacenter has to match the location.
   EOF
 }
 
-variable "k8s_ip_datacenter" {
-  type        = string
+variable "k8s_agents" {
+  type = list(object({
+    type     = optional(string, "cax11")
+    location = string
+    count    = optional(number, 1)
+  }))
   description = <<EOF
-  This is the datacenter where the public IPs of the k8s-cluster belong to.
-  An overview of possible locations can be found at: https://docs.hetzner.com/cloud/general/locations/
-  Note, that the k8s_ip_datacenter has to match the k8s_location!
+  The agents of the kubernetes-cluster.
+  An overview of locations can be found at: https://docs.hetzner.com/cloud/general/locations/
   EOF
-}
-
-variable "k8s_server_count" {
-  type        = number
-  default     = 3
-  description = "Number of k8s-server nodes. This should always be an odd number."
-}
-
-variable "k8s_server_type" {
-  type    = string
-  default = "cax11"
-}
-
-variable "k8s_agent_count" {
-  type    = number
-  default = 3
-}
-
-variable "k8s_agent_type" {
-  type    = string
-  default = "cax11"
 }
 
 variable "dns_zones" {

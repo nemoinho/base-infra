@@ -9,16 +9,8 @@ module "k8s" {
 
   name     = "cluster1"
   ssh_keys = [for o in hcloud_ssh_key.this : o.id]
-  servers = [for n in range(var.k8s_server_count) : {
-    type          = var.k8s_server_type
-    location      = var.k8s_location
-    ip_datacenter = var.k8s_ip_datacenter
-  }]
-  agents = [{
-    type     = var.k8s_agent_type
-    location = var.k8s_location
-    count    = var.k8s_agent_count
-  }]
+  servers = var.k8s_servers
+  agents = var.k8s_agents
   auto_delete_primary_ips = false
   kubernetes_exposed_ips  = var.kubernetes_allowed_ips
   ssh_exposed_ips         = var.ssh_allowed_ips
