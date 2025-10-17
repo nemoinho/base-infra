@@ -1,3 +1,23 @@
+resource "hcloud_primary_ip" "ipv4" {
+  count = length(var.servers)
+
+  name          = "k8s_primary_ipv4_${count.index}"
+  datacenter    = var.servers[count.index].ip_datacenter
+  type          = "ipv4"
+  assignee_type = "server"
+  auto_delete   = var.auto_delete_primary_ips
+}
+
+resource "hcloud_primary_ip" "ipv6" {
+  count = length(var.servers)
+
+  name          = "k8s_primary_ipv6_${count.index}"
+  datacenter    = var.servers[count.index].ip_datacenter
+  type          = "ipv6"
+  assignee_type = "server"
+  auto_delete   = var.auto_delete_primary_ips
+}
+
 locals {
   network           = "10.0.0.0/16"
   subnet_eu_central = "10.0.0.0/24"
@@ -5,6 +25,8 @@ locals {
     for idx, config in var.servers : "${var.name}-server-${idx + 1}" => merge(
       config,
       {
+        ipv4_id  = hcloud_primary_ip.ipv4[idx].id
+        ipv6_id  = hcloud_primary_ip.ipv6[idx].id
         ip       = cidrhost(local.subnet_eu_central, idx + 2)
         first_ip = idx == 0 ? "" : cidrhost(local.subnet_eu_central, 2)
       }

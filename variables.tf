@@ -20,15 +20,6 @@ variable "ssh_keys" {
   type = map(string)
 }
 
-variable "k8s_test_installation" {
-  default     = false
-  description = <<EOF
-  When this is set to true we configure primary-ips to not be deleted automatically!
-  This allows us to reuse the same IP for multiple create/destroy cycles.
-  As soon as the test-phase is over this should be false.
-  EOF
-}
-
 # Right now this only supports 1 location, but that's okay for me!
 variable "k8s_location" {
   type        = string

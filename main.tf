@@ -4,45 +4,25 @@ resource "hcloud_ssh_key" "this" {
   public_key = each.value
 }
 
-resource "hcloud_primary_ip" "k8s_ipv4" {
-  count = var.k8s_server_count < 1 ? 1 : var.k8s_server_count
-
-  name          = "k8s_primary_ipv4_${count.index}"
-  datacenter    = var.k8s_ip_datacenter
-  type          = "ipv4"
-  assignee_type = "server"
-  auto_delete   = !var.k8s_test_installation
-}
-
-resource "hcloud_primary_ip" "k8s_ipv6" {
-  count = var.k8s_server_count < 1 ? 1 : var.k8s_server_count
-
-  name          = "k8s_primary_ipv6_${count.index}"
-  datacenter    = var.k8s_ip_datacenter
-  type          = "ipv6"
-  assignee_type = "server"
-  auto_delete   = !var.k8s_test_installation
-}
-
 module "k8s" {
   source = "./modules/hetzner/kubernetes"
 
   name     = "cluster1"
   ssh_keys = [for o in hcloud_ssh_key.this : o.id]
   servers = [for n in range(var.k8s_server_count) : {
-    ipv4_id  = hcloud_primary_ip.k8s_ipv4[n].id
-    ipv6_id  = hcloud_primary_ip.k8s_ipv6[n].id
-    type     = var.k8s_server_type
-    location = var.k8s_location
+    type          = var.k8s_server_type
+    location      = var.k8s_location
+    ip_datacenter = var.k8s_ip_datacenter
   }]
   agents = [{
     type     = var.k8s_agent_type
     location = var.k8s_location
     count    = var.k8s_agent_count
   }]
-  kubernetes_exposed_ips = var.kubernetes_allowed_ips
-  ssh_exposed_ips        = var.ssh_allowed_ips
-  ssh_port               = 1022
+  auto_delete_primary_ips = false
+  kubernetes_exposed_ips  = var.kubernetes_allowed_ips
+  ssh_exposed_ips         = var.ssh_allowed_ips
+  ssh_port                = 1022
   public_tcp_services = {
     git-ssh = ["22"]
     http = ["80", "443"]
@@ -66,12 +46,12 @@ locals {
       zone_ttl = values.zone_ttl
       records = toset(concat(
         values.default_A ? [
-          { name = "@", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
-          { name = "*", type = "A", value = hcloud_primary_ip.k8s_ipv4[0].ip_address },
+          { name = "@", type = "A", value = module.k8s.server_ips_v4[0] },
+          { name = "*", type = "A", value = module.k8s.server_ips_v4[0] },
         ] : [],
         values.default_AAAA ? [
-          { name = "@", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
-          { name = "*", type = "AAAA", value = "${hcloud_primary_ip.k8s_ipv6[0].ip_address}1" },
+          { name = "@", type = "AAAA", value = module.k8s.server_ips_v6[0] },
+          { name = "*", type = "AAAA", value = module.k8s.server_ips_v6[0] },
         ] : [],
         tolist(values.custom_records)
       ))

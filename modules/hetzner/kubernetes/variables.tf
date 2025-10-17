@@ -8,10 +8,9 @@ variable "ssh_keys" {
 
 variable "servers" {
   type = list(object({
-    ipv4_id  = number
-    ipv6_id  = number
-    type     = string
-    location = string
+    type          = string
+    location      = string
+    ip_datacenter = string
   }))
 }
 
@@ -24,26 +23,37 @@ variable "agents" {
 }
 
 variable "ping_enabled" {
-  type = bool
+  type    = bool
   default = true
 }
 
 variable "public_tcp_services" {
-  type = map(list(string))
+  type    = map(list(string))
   default = {}
 }
 
 variable "kubernetes_exposed_ips" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "ssh_exposed_ips" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "ssh_port" {
-  type = number
+  type    = number
   default = 1022
+}
+
+variable "auto_delete_primary_ips" {
+  default     = true
+  description = <<EOF
+  Set this to "false" to keep the primary IPs bound to your Hetzner-Account, even after a destroy.
+  This setting would allow for reuse of the same IPs between multiple create/destroy cycles.
+  Though, it doesn't guarantee reuse of the same IPs.
+
+  Note, that reserved IPs will create costs, even if they're not used.
+  EOF
 }
