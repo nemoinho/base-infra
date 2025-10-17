@@ -2,10 +2,7 @@
 :icons: font
 
 This project is meant to setup my base infrastructure for the web.
-In particular it will perform the following tasks:
-
-* Setup Kubernetes cluster on Hetzner Cloud
-* Maintain keys for Backblaze (b2)
+In particular my Kubernetes cluster as well as a base set of software (CI/CD, git-server, etc.) and access-keys.
 
 To achieve the goal of having a working base infrastructure for the web the setup is split into 2 dedicated steps:
 
