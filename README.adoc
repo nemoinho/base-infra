@@ -63,7 +63,7 @@ This allows issuing TLS certificates.
 The certificates are issued via https://letsencrypt.org[let's encrypt] and can be issued for the staging and production stage of let's encrypt.
 
 https://concourse-ci.org[concourse-ci]::
-A powerful CI-cervice which I like to use to automate all kind of workloads.
+A powerful CI-service which I like to use to automate all kind of workloads.
 +
 TODO: Not setup yet!
 
@@ -113,14 +113,14 @@ config:: Everything needed to update the local kube-config
 k8s:: Everything needed to provide the foundational services
 
 [TIP]
-The affected scope of the ansible-playbook can be limited with tags (`--tags tag1,tag2`):
+The affected scope of the Ansible-playbook can be limited with tags (`--tags tag1,tag2`):
 
 == Enlarge / Reduce size of cluster
 
 Increase::
 --
 . Simply adjust the number of agents/servers in your `infra/config.auto.tfvars`.
-. Then run the ansible-playbook of k3s again
+. Then run the Ansible-playbook of k3s again
 --
 Decrease::
 --
