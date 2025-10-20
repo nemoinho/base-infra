@@ -7,17 +7,17 @@ resource "hcloud_ssh_key" "this" {
 module "k8s" {
   source = "./modules/hetzner/kubernetes"
 
-  name     = "cluster1"
-  ssh_keys = [for o in hcloud_ssh_key.this : o.id]
-  servers = var.k8s_servers
-  agents = var.k8s_agents
+  name                    = "cluster1"
+  ssh_keys                = [for o in hcloud_ssh_key.this : o.id]
+  servers                 = var.k8s_servers
+  agents                  = var.k8s_agents
   auto_delete_primary_ips = false
   kubernetes_exposed_ips  = var.kubernetes_allowed_ips
   ssh_exposed_ips         = var.ssh_allowed_ips
   ssh_port                = 1022
   public_tcp_services = {
     git-ssh = ["22"]
-    http = ["80", "443"]
+    http    = ["80", "443"]
   }
 }
 
