@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "nemoinho-tfstate"
-    key    = "hetzner-infra/terraform.tfstate"
+    key    = "base-infra/terraform.tfstate"
     region = "eu-central-003"
     endpoints = {
       s3 = "https://s3.eu-central-003.backblazeb2.com"
