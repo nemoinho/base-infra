@@ -26,6 +26,10 @@ terraform {
       source  = "hashicorp/random"
       version = "3.7.1"
     }
+    external = {
+      source  = "hashicorp/external"
+      version = "2.3.4"
+    }
   }
 }
 
@@ -38,3 +42,5 @@ provider "hcloud" {
 }
 
 provider "random" {}
+
+provider "external" {}

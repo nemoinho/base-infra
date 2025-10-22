@@ -1,11 +1,23 @@
 variable "kubernetes_allowed_ips" {
   type        = set(string)
   description = "A set of IPs (IPv4 and IPv6) which have access to the kubernetes API."
+  default     = []
 }
 
 variable "ssh_allowed_ips" {
   type        = set(string)
   description = "A set of IPs (IPv4 and IPv6) which can access the cluster via SSH."
+  default     = []
+}
+
+variable "add_local_ip_to_kubernetes_allowed_ips" {
+  default = true
+  description = "Whether to add the current local ip to the set of IPs which have access to the kubernetes API."
+}
+
+variable "add_local_ip_to_ssh_allowed_ips" {
+  default = true
+  description = "Whether to add the current local ip to the set of IPs which have access to the cluster via SSH."
 }
 
 variable "hetzner_dns_apitoken" {

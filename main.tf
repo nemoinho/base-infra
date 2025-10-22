@@ -4,6 +4,31 @@ resource "hcloud_ssh_key" "this" {
   public_key = each.value
 }
 
+data "external" "current_ips" {
+  count = var.add_local_ip_to_ssh_allowed_ips || var.add_local_ip_to_kubernetes_allowed_ips ? 1 : 0
+  program = [
+    "sh",
+    "-c",
+    "(ip -6 route show | awk '/proto ra metric/&&!/^default/{print $1}'; curl -s ipinfo.io/ip; echo /32) | jq -R '{(.): .}' | jq -s add"
+  ]
+}
+
+locals {
+  current_ips = flatten([ for value in data.external.current_ips.*.result : values(value) ])
+  kubernetes_allowed_ips = toset(
+    concat(
+      tolist(var.kubernetes_allowed_ips), 
+      var.add_local_ip_to_kubernetes_allowed_ips ? local.current_ips : []
+    )
+  )
+  ssh_allowed_ips = toset(
+    concat(
+      tolist(var.ssh_allowed_ips),
+      var.add_local_ip_to_ssh_allowed_ips ? local.current_ips : []
+    )
+  )
+}
+
 module "k8s" {
   source = "./modules/hetzner/kubernetes"
 
@@ -12,8 +37,8 @@ module "k8s" {
   servers                 = var.k8s_servers
   agents                  = var.k8s_agents
   auto_delete_primary_ips = false
-  kubernetes_exposed_ips  = var.kubernetes_allowed_ips
-  ssh_exposed_ips         = var.ssh_allowed_ips
+  kubernetes_exposed_ips  = local.kubernetes_allowed_ips
+  ssh_exposed_ips         = local.ssh_allowed_ips
   ssh_port                = 1022
   public_tcp_services = {
     git-ssh = ["22"]
