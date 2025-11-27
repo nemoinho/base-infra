@@ -31,6 +31,4 @@
   gather_facts: no
   roles:
   - role: k8s-setup
-  tags:
-  - init
-  - k8s
+  # Each service brings it's own set of tags

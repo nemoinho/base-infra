@@ -1,17 +1,20 @@
 - name: Ensure cert-manager
   tags:
+  - init
   - k8s
   - cert-manager
   import_tasks: _cert-manager.yml
 
 - name: Ensure gitea
   tags:
+  - init
   - k8s
   - gitea
   import_tasks: _gitea.yml
 
 - name: Ensure concourse
   tags:
+  - init
   - k8s
   - concourse
   import_tasks: _concourse.yml
