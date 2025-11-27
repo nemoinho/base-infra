@@ -9,3 +9,9 @@
   - k8s
   - gitea
   import_tasks: _gitea.yml
+
+- name: Ensure concourse
+  tags:
+  - k8s
+  - concourse
+  import_tasks: _concourse.yml

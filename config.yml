@@ -1,8 +1,10 @@
 all:
   vars:
     api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
+
     cert_manager_state: present
     cert_manager_version: v1.18.2
+
     letsencrypt_clusterissuers:
       staging:
         server: https://acme-staging-v02.api.letsencrypt.org/directory
@@ -10,6 +12,7 @@ all:
       prod:
         server: https://acme-v02.api.letsencrypt.org/directory
         email: "{{ vault_letsencrypt_issuer_email }}"
+
     gitea_chart_version: 12.3.0
     gitea_state: present
     gitea_host: gitea.nehrke.info
@@ -19,6 +22,13 @@ all:
     gitea_admin_user: "{{ vault_gitea_admin_user }}"
     gitea_admin_password: "{{ vault_gitea_admin_password }}"
     gitea_admin_email: "{{ vault_gitea_admin_email }}"
+
+    concourse_state: present
+    concourse_chart_version: 19.0.2
+    concourse_certificate_issuer: letsencrypt-prod
+    concourse_host: ci.nehrke.info
+    concourse_local_users: "{{ vault_concourse_local_users }}"
+    concourse_worker_replicas: 2
 
 k3s_cluster:
   vars:

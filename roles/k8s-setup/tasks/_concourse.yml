@@ -1,0 +1,45 @@
+- name: Ensure concourse namespace
+  kubernetes.core.k8s:
+    state: "{{ concourse_state }}"
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ concourse_namespace }}"
+        labels:
+          name: "{{ concourse_namespace }}"
+
+- name: Deploy concourse {{ concourse_chart_version }}
+  kubernetes.core.helm:
+    name: concourse
+    chart_ref: concourse
+    chart_version: "{{ concourse_chart_version }}"
+    chart_repo_url: https://concourse-charts.storage.googleapis.com/
+    release_namespace: "{{ concourse_namespace }}"
+    release_state: "{{ concourse_state }}"
+    values:
+      concourse:
+        web:
+          kubernetes:
+            keepNamespaces: False
+          externalUrl: "https://{{ concourse_host }}"
+          enableResourceCausality: True
+      secrets:
+        localUsers: "{{ concourse_local_users.items() | map('join', ':') | join(',') }}"
+      worker:
+        replicas: "{{ concourse_worker_replicas }}"
+      web:
+        env:
+        - name: CONCOURSE_MAIN_TEAM_LOCAL_USER
+          value: "{{ concourse_local_users.keys() | join(',') }}"
+        ingress:
+          enabled: True
+          annotations:
+            cert-manager.io/cluster-issuer: "{{ concourse_certificate_issuer }}"
+            traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+          hosts:
+          - "{{ concourse_host }}"
+          tls:
+          - hosts:
+            - "{{ concourse_host }}"
+            secretName: concourse-tls
