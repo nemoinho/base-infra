@@ -28,15 +28,13 @@ ansible-galaxy install -r requirements.yml
 ansible-playbook site.yml
 ----
 
-== Supported Platforms
+== Required Software
 
 The setup works on:
 
 * Debian
 * Ubuntu
 * macOS
-
-== Required Software
 
 Please install the following:
 
