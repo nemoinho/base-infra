@@ -1,66 +1,92 @@
-= Base Infra
+= Base Infrastructure
 :icons: font
+:source-highlighter: rouge
 
-This project is meant to set up my base infrastructure for the web.
-In particular my Kubernetes cluster as well as a base set of software (CI/CD, git-server, etc.) and access-keys.
+This project will set up a https://k3s.io/[k3s] Kubernetes cluster on https://www.hetzner.com/cloud[Hetzner Cloud] using OpenTofu and Ansible.
 
-To achieve the goal of having a working base infrastructure for the web the setup is split into 2 dedicated steps:
+It is meant to set up my base infrastructure for the web.
+In particular to bootstrap required machines and networks,
+as well as installing a Kubernetes cluster and deploying a set of foundational services.
 
-. Create static assets like machines for Kubernetes and access-keys via https://opentofu.org/[OpenTofu] (or Terraform).
-. Install/Upgrade Kubernetes-cluster and other software via Ansible.
+The system is intentionally split into two stages:
 
-The infrastructure is deployed on https://www.hetzner.com/cloud[Hetzner Cloud].
+1. Infrastructure provisioning using https://opentofu.org/[OpenTofu] (or Terraform)
+2. Cluster and software installation using Ansible
+
+The entire setup is *idempotent*, meaning it can be applied repeatedly and safely.
 
 == TL;DR
 
 [source,bash]
 ----
-vim -o .envrc config.auto.tfvars # Get the contents from password-manager
+vim -o .envrc config.auto.tfvars # Add secrets from password manager
 direnv allow
 tofu init
 tofu apply
-until ansible -m ping all; do sleep 10; done # Wait for the machines to start
-ansible-galaxy install -r requirements.yml 
+until ansible -m ping all; do sleep 10; done # Wait until VMs are reachable
+ansible-galaxy install -r requirements.yml
 ansible-playbook site.yml
 ----
 
-== Required software and packages
+== Supported Platforms
 
-The setup will run on Debian, Ubuntu and macOS.
+The setup works on:
 
-Make sure the following software is installed:
+* Debian
+* Ubuntu
+* macOS
 
-* `tofu` or `terraform` (from package manager)
-* `ansible` (from package manager)
-* `direnv` (from package manager)
-* https://helm.sh/docs/intro/install/[`helm`]
+== Required Software
+
+Please install the following:
+
+* `tofu` or `terraform`
+* `ansible`
+* `direnv`
+* https://helm.sh/docs/intro/install/[`helm`] 
 * https://github.com/databus23/helm-diff?tab=readme-ov-file#install[`helm-diff`]
-* `python3-kubernetes` (only on Debian/Ubuntu, from package manager)
+* `python3-kubernetes` (Debian/Ubuntu only)
 
-=== Optional packages
+=== Optional Tools
 
-These packages make maintenance easier.
+These tools improve maintenance and cluster operations:
 
-. `k9s` (from package manager)
+* `k9s`
 
-== Setup
+== Secrets & Local Configuration
 
-Make sure `.envrc` and `config.auto.tfvars` are present.
-Then run `direnv allow` in the directory to apply the `.envrc`. +
+The setup requires two files:
 
-Since these files contain sensitive information they are stored outside of this project in my password-manager.
+* `.envrc`
+* `config.auto.tfvars`
+
+These contain credentials, environment variables, and configuration values.
+Both files are stored securely in my password manager.
 
 [TIP]
-I've provided templates for both files:
+Templates are available in the repository:
 * https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/.envrc.tpl[`.envrc`]
 * https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/config.auto.tfvars.tpl[`config.auto.tfvars`] are provided in the code.
 
-=== Infrastructure
+After placing these files, enable them with:
 
-I use OpenTofu to provide the required infrastructure to run a Kubernetes-cluster.
+[source,bash]
+----
+direnv allow
+----
+
+== Infrastructure Provisioning (OpenTofu)
+
+OpenTofu provisions:
+
+* Kubernetes server and agent machines
+* Networking (public + private subnets)
+* Firewall rules
+* Routing between subnets
+* DNS records
 
 [NOTE]
-The infrastructure is setup completely idempotent and can be safely re-applied.
+The infrastructure is fully idempotent. You can re-run `tofu apply` at any time.
 
 [source,bash]
 ----
@@ -69,25 +95,43 @@ tofu apply # <2>
 until ansible -m ping all; do sleep 10; done # <3>
 ----
 
-<1> Initialize the Tofu modules if necessary
-<2> Setup infrastructure and create/update inventory.ini
-<3> Wait until all machines are fully started (This might take up to 5 minutes)
+<1> Initialize modules
+<2> Apply infrastructure and generate `inventory.ini`
+<3> Wait until all VMs are reachable (may take up to 5 minutes)
 
-=== Software
+== Cluster & Software Installation (Ansible)
 
-I use Ansible to install and maintain the software of my cluster.
-This includes the Kubernetes cluster and the foundational services in it.
+Ansible installs and maintains all cluster software, including:
+
+* Routing and SSH setup on servers
+* A full k3s Kubernetes cluster
+* Foundational cluster services
 
 [NOTE]
-All Ansible playbooks are idempotent and can be safely re-run.
+All playbooks are idempotent and can be safely re-run.
 
-For the Kubernetes cluster I use https://k3s.io/[k3s], simply because it's very easy to maintain and still provides all common Kubernetes functionality.
+[source,bash]
+----
+ansible-galaxy install -r requirements.yml # <1>
+ansible-playbook site.yml                  # <2>
+----
 
-The foundational services are:
+<1> Install required Ansible collections  
+<2> Install k3s and write kubeconfig to `~/.kube/config`
+
+[CAUTION]
+Running the playbook will overwrite `~/.kube/config`.
+Backup your config if you manage multiple clusters.
+
+[NOTE]
+The Kubernetes setup requires an `inventory.ini` file, which Tofu creates automatically.
+So, make sure to apply the infrastructure at least once before running Ansible.
+
+=== Installed Foundational Services
 
 https://cert-manager.io/docs/installation/helm[cert-manager]::
 This enables automatic issuance of TLS certificates.
-The certificates are issued via https://letsencrypt.org[Let's Encrypt] and can be issued for the staging and production stage of Let's Encrypt.
+The certificates are issued via https://letsencrypt.org[Let's Encrypt] with support for both the staging and production environments of it.
 
 https://about.gitea.com[gitea]::
 My personal favorite git-server.
@@ -98,85 +142,66 @@ A powerful CI-service which I like to use to automate all kind of workloads.
 https://github.com/pinterest/snappass[snappass]::
 A secure and reliable tool for sharing passwords.
 +
-TODO: Not setup yet!
+WARNING: Not set up yet!
 
-[NOTE]
-The k3s-setup requires an `inventory.ini` which is automatically created by Tofu.
-So, make sure to apply the infra at least once, before running these playbooks.
+=== Configured tags
 
-[source,bash]
-----
-ansible-galaxy install -r requirements.yml # <1>
-ansible-playbook site.yml # <2>
-----
+The playbook has a couple of tags configured to restrict the execution scope.
 
-<1> Install required Ansible collections to create a k3s-cluster (can be omitted in subsequent runs)
-<2> Install k3s and download kube-config to `~/.kube/config`
+You can restrict playbook scope to specific areas using `--tags`.
 
-[CAUTION]
-The second step will override `~/.kube/config`.
-Backup your existing config if you manage multiple clusters!
+.General tags
+[horizontal]
+`init`:: Full initial setup
+`add-server`:: Add a new k3s server node
+`add-agent`:: Add a new k3s agent node
+`update`:: Upgrade Kubernetes or system packages
+`config`:: Update local kubeconfig
+`k8s`:: Deploy foundational services
 
-[TIP]
-The affected scope of the Ansible-playbook can be limited with tags (`--tags tag1,tag2`):
+.Service-specific tags
+[horizontal]
+`cert-manager`:: Apply changes to the cert-manager including support for `Let's Encrypt`
+`gitea`:: Apply changes to gitea
+`concourse`:: Apply changes to concourse
 
-==== Configured tags
-
-The playbook has a couple of tags configured which restrict the execution to certain tasks.
-
-init:: Everything needed for the initial setup (same as omitting tags altogether)
-add-server:: Everything needed to add a new https://docs.k3s.io/cli/server[server] to the cluster
-add-agent:: Everything needed to add a new https://docs.k3s.io/cli/agent[agent] to the cluster
-update:: Everything needed to update the cluster
-config:: Everything needed to update the local kube-config
-k8s:: Everything needed to provide the foundational services
-
-===== app-specific tags
-
-To allow to update specific services quickly you can use the following tags.
-However, these require a functional Kubernetes cluster first.
-
-cert-manager:: Apply changes to the cert-manager including support for `Let's Encrypt`
-gitea:: Apply changes to gitea
-concourse:: Apply changes to concourse
-
-== Enlarge / Reduce size of cluster
+== Scaling the Cluster
 
 Increase::
 --
-. Simply adjust the number of agents/servers in your `infra/config.auto.tfvars`.
-. Then run the Ansible-playbook of k3s again
+. Adjust the number of servers/agents in `config.auto.tfvars`
+. Then rerun the Ansible playbook
 --
+
 Decrease::
 --
-If you want to shrink the cluster **DO NOT** reduce the agent-amount directly!
-Instead proceed as the following:
+DO NOT reduce the agent count directly.
 
-. Open k9s and go to `:nodes`
-. Select the agent with the highest numerical index and press `r` to drain it
-. Once that succeeded delete it with `Ctrl-d`
-. Finally reduce the amount of agents in Tofu and apply the change
+1. Open `k9s`
+2. Navigate to `:nodes`
+3. Select the agent with the highest numeric index
+4. Drain it with kbd:[r]
+5. After draining, delete it with kbd:[Ctrl + d]
+6. Now decrease the agent count in `config.auto.tfvars` and run `tofu apply`
 --
 
 == Responsibilities
 
 OpenTofu::
-* Provide a network for the Kubernetes-cluster
-** A public subnet exposed to the internet for the Kubernetes-servers
-** A private subnet for the Kubernetes-agents
-** Routing between subnets
-* Managing firewall rules to block everything from the servers except of:
-** ping (protocol: `icmp`)
-** Kubernetes API (Usually port `6443`)
-** ssh (I prefer to use a non-standard port (usually port `1022`)
-** public services, e.g. http and https (port `80` and `443`) but also git-ssh (port `22`)
-* Provisioning the machines for Kubernetes-servers in the public subnet
-* Provisioning the machines for Kubernetes-agents in the private subnet
-* Managing DNS-records
+* Provision machines for Kubernetes servers (public subnet)
+* Provision machines for Kubernetes agents (private subnet)
+* Create networking (public/private subnets + routing)
+* Manage firewall rules:
+** ICMP
+** Kubernetes API (`6443`)
+** SSH (nonstandard port, usually `1022`)
+** HTTP/HTTPS (`80`, `443`)
+** Git SSH (`22`)
+* Manage DNS records
 
 Ansible::
-* Setup SSH-connections
-* Setting up routing on all servers
-* Installing k3s
-* Keep the software up-to-date
-* Add foundational services to the cluster
+* Configure SSH access
+* Configure routing on all servers
+* Install and maintain k3s
+* Keep system software updated
+* Deploy foundational services
