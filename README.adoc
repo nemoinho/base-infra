@@ -9,6 +9,8 @@ To achieve the goal of having a working base infrastructure for the web the setu
 . Create static assets like machines for Kubernetes and access-keys via https://opentofu.org/[OpenTofu] (or Terraform).
 . Install/Upgrade Kubernetes-cluster and other software via Ansible.
 
+The infrastructure is deployed on https://www.hetzner.com/cloud[Hetzner Cloud].
+
 == TL;DR
 
 [source,bash]
