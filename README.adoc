@@ -1,7 +1,7 @@
 = Base Infrastructure
 :icons: font
 :source-highlighter: rouge
-:toc:
+:toc: macro
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :point_up:
@@ -13,6 +13,8 @@ endif::[]
 ifdef::env-github[]
 NOTE: This is only *a mirror* from my https://gitea.nehrke.info/nemoinho/base-infra[personal git-server].
 endif::[]
+
+toc::[]
 
 This project will set up a https://k3s.io/[k3s] Kubernetes cluster on https://www.hetzner.com/cloud[Hetzner Cloud] using OpenTofu and Ansible.
 
