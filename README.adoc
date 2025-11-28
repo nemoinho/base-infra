@@ -73,9 +73,12 @@ These contain credentials, environment variables, and configuration values.
 Both files are stored securely in my password manager.
 
 [TIP]
+--
 Templates are available in the repository:
+
 * https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/.envrc.tpl[`.envrc`]
 * https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/config.auto.tfvars.tpl[`config.auto.tfvars`] are provided in the code.
+--
 
 After placing these files, enable them with:
 
