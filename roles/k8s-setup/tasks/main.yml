@@ -18,3 +18,10 @@
   - k8s
   - concourse
   import_tasks: _concourse.yml
+
+- name: Ensure snappass
+  tags:
+  - init
+  - k8s
+  - snappass
+  import_tasks: _snappass.yml

@@ -30,6 +30,10 @@ all:
     concourse_local_users: "{{ vault_concourse_local_users }}"
     concourse_worker_replicas: 2
 
+    snappass_state: present
+    snappass_host: snappass.nehrke.info
+    snappass_certificate_issuer: letsencrypt-prod
+
 k3s_cluster:
   vars:
     ansible_user: root

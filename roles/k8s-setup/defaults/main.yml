@@ -16,3 +16,8 @@ concourse_state: present
 concourse_namespace: concourse
 concourse_local_users: {}
 concourse_worker_replicas: 2
+
+snappass_chart_version: 0.1.13
+snappass_state: present
+snappass_namespace: snappass
+snappass_tls_secret: snappass-tls

@@ -176,6 +176,7 @@ You can restrict playbook scope to specific areas using `--tags`.
 `cert-manager`:: Apply changes to the cert-manager including support for `Let's Encrypt`
 `gitea`:: Apply changes to gitea
 `concourse`:: Apply changes to concourse
+`snappass`:: Apply changes to snappass
 
 == Scaling the Cluster
 

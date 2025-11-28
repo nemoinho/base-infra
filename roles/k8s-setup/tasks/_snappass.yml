@@ -1,0 +1,37 @@
+- name: Ensure snappass namespace
+  kubernetes.core.k8s:
+    state: "{{ snappass_state }}"
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ snappass_namespace }}"
+        labels:
+          name: "{{ snappass_namespace }}"
+
+- name: Deploy snappass
+  kubernetes.core.helm:
+    name: snappass
+    chart_ref: snappass
+    chart_version: "{{ snappass_chart_version }}"
+    chart_repo_url: https://lmacka.github.io/helm-snappass/
+    release_namespace: "{{ snappass_namespace }}"
+    release_state: "{{ snappass_state }}"
+    values:
+      image:
+        repository: nemoinho/snappass
+      ingress:
+        enabled: True
+        className: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: "{{ snappass_certificate_issuer }}"
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+        hosts:
+        - host: "{{ snappass_host }}"
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "{{ snappass_host }}"
+          secretName: "{{ snappass_tls_secret }}"
