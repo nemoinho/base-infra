@@ -77,7 +77,7 @@ Both files are stored securely in my password manager.
 Templates are available in the repository:
 
 * https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/.envrc.tpl[`.envrc`]
-* https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/config.auto.tfvars.tpl[`config.auto.tfvars`] are provided in the code.
+* https://gitea.nehrke.info/nemoinho/base-infra/src/branch/main/config.auto.tfvars.tpl[`config.auto.tfvars`]
 --
 
 After placing these files, enable them with:
