@@ -153,8 +153,6 @@ A powerful CI-service which I like to use to automate all kind of workloads.
 
 https://github.com/pinterest/snappass[snappass]::
 A secure and reliable tool for sharing passwords.
-+
-WARNING: Not set up yet!
 
 === Configured tags
 
