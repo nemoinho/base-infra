@@ -1,6 +1,13 @@
 = Base Infrastructure
 :icons: font
 :source-highlighter: rouge
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :point_up:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 ifdef::env-github[]
 NOTE: This is only *a mirror* from my https://gitea.nehrke.info/nemoinho/base-infra[personal git-server].
