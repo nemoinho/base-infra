@@ -71,6 +71,8 @@
           email: "{{ gitea_admin_email }}"
         config:
           APP_NAME: "Gitea: Mein kleiner git-server"
+          service:
+            DISABLE_REGISTRATION: "true"
           markup.plantuml:
             ENABLED: "true"
             NEED_POSTPROCESS: "false"
