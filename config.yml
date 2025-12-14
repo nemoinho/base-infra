@@ -13,7 +13,7 @@ all:
         server: https://acme-v02.api.letsencrypt.org/directory
         email: "{{ vault_letsencrypt_issuer_email }}"
 
-    gitea_chart_version: 12.3.0
+    gitea_chart_version: 12.4.0
     gitea_state: present
     gitea_host: gitea.nehrke.info
     gitea_certificate_issuer: letsencrypt-prod

@@ -3,7 +3,7 @@ cert_manager_version: v1.18.2
 
 letsencrypt_clusterissuers: {}
 
-gitea_chart_version: 12.3.0
+gitea_chart_version: 12.4.0
 gitea_state: present
 gitea_image_rootless: False
 gitea_image_pull_policy: IfNotPresent
