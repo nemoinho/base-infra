@@ -118,6 +118,7 @@ Ansible installs and maintains all cluster software, including:
 
 * Routing and SSH setup on servers
 * A full k3s Kubernetes cluster
+* Distributed block-storage via https://longhorn.io/[longhorn]
 * Foundational cluster services
 
 [NOTE]
@@ -139,6 +140,23 @@ Backup your config if you manage multiple clusters.
 [NOTE]
 The Kubernetes setup requires an `inventory.ini` file, which Tofu creates automatically.
 So, make sure to apply the infrastructure at least once before running Ansible.
+
+=== Longhorn
+
+The setup installs https://longhorn.io/[Longhorn], which provides a distributed block-storage system for the Kubernetes cluster.
+
+Longhorn exposes a default storage class named `longhorn`.
+This storage class is backed by replicated volumes distributed across multiple nodes,
+reducing dependency on node-local ephemeral storage and allowing workloads to be rescheduled more reliably.
+
+Longhorn also provides a web-based dashboard for inspecting volumes, replicas, and node health.
+
+To access the dashboard, forward the service port:
+
+[source,bash]
+kubectl port-forward -n longhorn-system --address 0.0.0.0 service/longhorn-frontend 8000:80
+
+Then open http://localhost:8000/ in your browser.
 
 === Installed Foundational Services
 
@@ -167,6 +185,8 @@ You can restrict playbook scope to specific areas using `--tags`.
 `add-server`:: Add a new k3s server node
 `add-agent`:: Add a new k3s agent node
 `update`:: Upgrade Kubernetes or system packages
+`longhorn-compatible`:: Ensure longhorn-compatibility
+`longhorn`:: Deploy longhorn
 `config`:: Update local kubeconfig
 `k8s`:: Deploy foundational services
 
@@ -216,4 +236,5 @@ Ansible::
 * Configure routing on all servers
 * Install and maintain k3s
 * Keep system software updated
+* Install longhorn
 * Deploy foundational services

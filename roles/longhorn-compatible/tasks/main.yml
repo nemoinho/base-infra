@@ -1,0 +1,22 @@
+- name: Ensure longhorn dependencies are installed
+  package:
+    state: present
+    name:
+    - open-iscsi
+    - nfs-common
+
+- name: Ensure iscsid service is enabled and started
+  ansible.builtin.systemd_service:
+    name: iscsid
+    enabled: true
+    state: started
+
+- name: Ensure iscsi_tcp module is added
+  community.general.modprobe:
+    name: iscsi_tcp
+    state: present
+
+- name: Ensure nfs module is added
+  community.general.modprobe:
+    name: nfs
+    state: present
