@@ -39,6 +39,7 @@ k3s_cluster:
     ansible_user: root
     # note the space between the IPs!
     dns_servers: 8.8.8.8 8.8.4.4
+    extra_server_args: '--cluster-init'
 
 agent:
   vars:
