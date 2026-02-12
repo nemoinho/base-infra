@@ -34,15 +34,13 @@ variable "ssh_keys" {
 
 variable "k8s_servers" {
   type = list(object({
-    type          = optional(string, "cax11")
-    location      = string
-    ip_datacenter = string
+    type     = optional(string, "cax11")
+    location = string
   }))
   description = <<EOF
   The servers of the kubernetes-cluster.
   This should always contain an off number of servers.
   An overview of locations can be found at: https://docs.hetzner.com/cloud/general/locations/
-  Note, that the ip_datacenter has to match the location.
   EOF
 }
 

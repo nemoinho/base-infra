@@ -2,7 +2,7 @@ resource "hcloud_primary_ip" "ipv4" {
   count = length(var.servers)
 
   name          = "k8s_primary_ipv4_${count.index}"
-  datacenter    = var.servers[count.index].ip_datacenter
+  location      = var.servers[count.index].location
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = var.auto_delete_primary_ips
@@ -12,7 +12,7 @@ resource "hcloud_primary_ip" "ipv6" {
   count = length(var.servers)
 
   name          = "k8s_primary_ipv6_${count.index}"
-  datacenter    = var.servers[count.index].ip_datacenter
+  location      = var.servers[count.index].location
   type          = "ipv6"
   assignee_type = "server"
   auto_delete   = var.auto_delete_primary_ips

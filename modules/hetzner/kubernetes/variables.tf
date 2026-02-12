@@ -8,9 +8,8 @@ variable "ssh_keys" {
 
 variable "servers" {
   type = list(object({
-    type          = string
-    location      = string
-    ip_datacenter = string
+    type     = string
+    location = string
   }))
 }
 
