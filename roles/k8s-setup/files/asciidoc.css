@@ -649,6 +649,7 @@
 .markup.asciidoc .imageblock.th{border-width:6px}
 .markup.asciidoc .imageblock.thumb>.title,
 .markup.asciidoc .imageblock.th>.title{padding:0 .125em}
+.markup.asciidoc .imageblock>.content{overflow-x:auto}
 .markup.asciidoc .image.left,
 .markup.asciidoc .image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
 .markup.asciidoc .image.left{margin-right:.625em}
@@ -880,3 +881,64 @@
 .markup.asciidoc .tok-gs{font-weight:bold}
 .markup.asciidoc .tok-gu{color:light-dark(inherit, #75715e)}
 
+html[data-theme*="dark"] {
+  .markup.asciidoc > h1:first-child{color:rgba(255,255,255,.85)}
+  .markup.asciidoc .paragraph.lead > p, .markup.asciidoc #preamble > .sectionbody > [class="paragraph"]:first-of-type p{color:rgba(255,255,255,.85)}
+  .markup.asciidoc :not(pre):not([class^="L"]) > code{background:#888}
+  .markup.asciidoc .admonitionblock > table td.content{color:rgba(255,255,255,.6)}
+  .markup.asciidoc .subheader, .markup.asciidoc .admonitionblock td.content > .title, .markup.asciidoc .audioblock > .title, .markup.asciidoc .exampleblock > .title, .markup.asciidoc .imageblock > .title, .markup.asciidoc .listingblock > .title, .markup.asciidoc .literalblock > .title, .markup.asciidoc .stemblock > .title, .markup.asciidoc .openblock > .title, .markup.asciidoc .paragraph > .title, .markup.asciidoc .quoteblock > .title, .markup.asciidoc table.tableblock > .title, .markup.asciidoc .verseblock > .title, .markup.asciidoc .videoblock > .title, .markup.asciidoc .dlist > .title, .markup.asciidoc .olist > .title, .markup.asciidoc .ulist > .title, .markup.asciidoc .qlist > .title, .markup.asciidoc .hdlist > .title{color:#85dae7}
+  .markup.asciidoc h1, .markup.asciidoc h2, .markup.asciidoc h3, .markup.asciidoc #toctitle, .markup.asciidoc .sidebarblock > .content > .title, .markup.asciidoc h4, .markup.asciidoc h5, .markup.asciidoc h6{color:#42bdd0}
+  .markup.asciidoc table tr th, .markup.asciidoc table tr td{color:rgba(255,255,255,.8)}
+  .markup.asciidoc .conum[data-value]{color:#000 !important;background:rgba(255,255,255,.8)}
+  .markup.asciidoc .quoteblock blockquote, .markup.asciidoc .quoteblock p{color:rgba(255,255,255,.85)}
+  .markup.asciidoc .quoteblock .attribution cite, .markup.asciidoc .verseblock .attribution cite{color:rgba(255,255,255,.6)}
+  .markup.asciidoc table{background:initial}
+  .markup.asciidoc table thead, .markup.asciidoc table tfoot{background:#080708}
+  .markup.asciidoc table.tableblock, .markup.asciidoc th.tableblock, .markup.asciidoc td.tableblock{border-color:#212121}
+  .markup.asciidoc .tok-n,
+  .markup.asciidoc .tok-nb,
+  .markup.asciidoc .tok-bp,
+  .markup.asciidoc .tok-ni,
+  .markup.asciidoc .tok-fm,
+  .markup.asciidoc .tok-nl,
+  .markup.asciidoc .tok-nn,
+  .markup.asciidoc .tok-py,
+  .markup.asciidoc .tok-nv,
+  .markup.asciidoc .tok-vc,
+  .markup.asciidoc .tok-vg,
+  .markup.asciidoc .tok-vi,
+  .markup.asciidoc .tok-vm,
+  .markup.asciidoc .tok-p{color:#eee}
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme*="auto"] {
+    .markup.asciidoc > h1:first-child{color:rgba(255,255,255,.85)}
+    .markup.asciidoc .paragraph.lead > p, .markup.asciidoc #preamble > .sectionbody > [class="paragraph"]:first-of-type p{color:rgba(255,255,255,.85)}
+    .markup.asciidoc :not(pre):not([class^="L"]) > code{background:#888}
+    .markup.asciidoc .admonitionblock > table td.content{color:rgba(255,255,255,.6)}
+    .markup.asciidoc .subheader, .markup.asciidoc .admonitionblock td.content > .title, .markup.asciidoc .audioblock > .title, .markup.asciidoc .exampleblock > .title, .markup.asciidoc .imageblock > .title, .markup.asciidoc .listingblock > .title, .markup.asciidoc .literalblock > .title, .markup.asciidoc .stemblock > .title, .markup.asciidoc .openblock > .title, .markup.asciidoc .paragraph > .title, .markup.asciidoc .quoteblock > .title, .markup.asciidoc table.tableblock > .title, .markup.asciidoc .verseblock > .title, .markup.asciidoc .videoblock > .title, .markup.asciidoc .dlist > .title, .markup.asciidoc .olist > .title, .markup.asciidoc .ulist > .title, .markup.asciidoc .qlist > .title, .markup.asciidoc .hdlist > .title{color:#85dae7}
+    .markup.asciidoc h1, .markup.asciidoc h2, .markup.asciidoc h3, .markup.asciidoc #toctitle, .markup.asciidoc .sidebarblock > .content > .title, .markup.asciidoc h4, .markup.asciidoc h5, .markup.asciidoc h6{color:#42bdd0}
+    .markup.asciidoc table tr th, .markup.asciidoc table tr td{color:rgba(255,255,255,.8)}
+    .markup.asciidoc .conum[data-value]{color:#000 !important;background:rgba(255,255,255,.8)}
+    .markup.asciidoc .quoteblock blockquote, .markup.asciidoc .quoteblock p{color:rgba(255,255,255,.85)}
+    .markup.asciidoc .quoteblock .attribution cite, .markup.asciidoc .verseblock .attribution cite{color:rgba(255,255,255,.6)}
+    .markup.asciidoc table{background:initial}
+    .markup.asciidoc table thead, .markup.asciidoc table tfoot{background:#080708}
+    .markup.asciidoc table.tableblock, .markup.asciidoc th.tableblock, .markup.asciidoc td.tableblock{border-color:#212121}
+    .markup.asciidoc .tok-n,
+    .markup.asciidoc .tok-nb,
+    .markup.asciidoc .tok-bp,
+    .markup.asciidoc .tok-ni,
+    .markup.asciidoc .tok-fm,
+    .markup.asciidoc .tok-nl,
+    .markup.asciidoc .tok-nn,
+    .markup.asciidoc .tok-py,
+    .markup.asciidoc .tok-nv,
+    .markup.asciidoc .tok-vc,
+    .markup.asciidoc .tok-vg,
+    .markup.asciidoc .tok-vi,
+    .markup.asciidoc .tok-vm,
+    .markup.asciidoc .tok-p{color:#eee}
+  }
+}
