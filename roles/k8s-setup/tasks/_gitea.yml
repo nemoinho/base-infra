@@ -107,12 +107,12 @@
       persistence:
         size: 15Gi
       postgresql:
-        enabled: False
+        enabled: True
         primary:
           persistence:
             size: 2Gi
       postgresql-ha:
-        enabled: True
+        enabled: False
         persistence:
           size: 2Gi
       valkey:
