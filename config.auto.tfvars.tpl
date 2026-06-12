@@ -1,4 +1,3 @@
-hetzner_dns_apitoken   = "YOUR_HETZNER_DNS_API_TOKEN"
 hetzner_cloud_apitoken = "YOUR_HETZNER_CLOUD_API_TOKEN"
 
 # Hetzner-locations: https://docs.hetzner.com/cloud/general/locations/

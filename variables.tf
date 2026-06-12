@@ -20,10 +20,6 @@ variable "add_local_ip_to_ssh_allowed_ips" {
   description = "Whether to add the current local ip to the set of IPs which have access to the cluster via SSH."
 }
 
-variable "hetzner_dns_apitoken" {
-  type = string
-}
-
 variable "hetzner_cloud_apitoken" {
   type = string
 }

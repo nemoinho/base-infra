@@ -14,10 +14,6 @@ terraform {
   }
 
   required_providers {
-    hetznerdns = {
-      source  = "timohirt/hetznerdns"
-      version = "2.2.0"
-    }
     hcloud = {
       source  = "hetznercloud/hcloud"
       version = "1.60.0"
@@ -31,10 +27,6 @@ terraform {
       version = "2.3.5"
     }
   }
-}
-
-provider "hetznerdns" {
-  apitoken = var.hetzner_dns_apitoken
 }
 
 provider "hcloud" {
