@@ -197,6 +197,15 @@ You can restrict playbook scope to specific areas using `--tags`.
 `concourse`:: Apply changes to concourse
 `snappass`:: Apply changes to snappass
 
+== Updating the Cluster
+To update the cluster you must adjust the `k3s_version` in `config.yml`.
+Make sure you follow the typical Kubernetes best practices:
+
+. Update one minor version at a time
+. Update the server first, then the agents
+
+You can safely skip patch versions, though.
+
 == Scaling the Cluster
 
 Increase::
